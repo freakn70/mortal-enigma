@@ -44,6 +44,7 @@
     </dependencies>
 
     <build>
+        <finalName>y-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -55,6 +56,8 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+
+                    <executable>true</executable>
                 </configuration>
             </plugin>
         </plugins>
