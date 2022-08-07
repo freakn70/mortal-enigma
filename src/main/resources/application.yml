@@ -1,0 +1,15 @@
+server:
+  port: 1997
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://49.206.228.34:1433;databaseName=ydb;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: Yashas@003
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.SQLServer2012Dialect
+      ddl-auto: update
