@@ -1,4 +1,4 @@
-package com.iyashasgowda.yservice.Utils;
+package com.iyashasgowda.yservice.utilities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

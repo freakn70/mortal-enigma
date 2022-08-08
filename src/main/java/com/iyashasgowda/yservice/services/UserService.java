@@ -1,8 +1,8 @@
 package com.iyashasgowda.yservice.services;
 
-import com.iyashasgowda.yservice.Utils.Helper;
 import com.iyashasgowda.yservice.entities.User;
 import com.iyashasgowda.yservice.repositories.UserRepository;
+import com.iyashasgowda.yservice.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

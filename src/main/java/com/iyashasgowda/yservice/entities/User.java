@@ -34,7 +34,7 @@ public class User {
     @Column(length = Integer.MAX_VALUE)
     private String password;
 
-    @Column(name = "created_on", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date created_on;
 
