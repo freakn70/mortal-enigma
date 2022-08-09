@@ -1,5 +1,6 @@
 package com.iyashasgowda.yservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
@@ -14,7 +16,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -34,6 +37,9 @@ public class User {
     @Column(length = Integer.MAX_VALUE)
     private String password;
 
+    @Column(nullable = false)
+    private long uploads = 0;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date created_on;
@@ -43,5 +49,5 @@ public class User {
     private Date updated_on;
 
     @Column(nullable = false)
-    private boolean active;
+    private boolean active = true;
 }

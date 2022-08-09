@@ -35,8 +35,8 @@ public class Storage {
         try {
             Files.createDirectories(this.VIDEO_STORAGE_LOCATION);
             Files.createDirectories(this.IMAGE_STORAGE_LOCATION);
-        } catch (Exception ex) {
-            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -49,7 +49,7 @@ public class Storage {
 
             return identifier;
         } catch (IOException ex) {
-            throw new RuntimeException("Could not store file " + identifier + ". Please try again!", ex);
+            return null;
         }
     }
 
@@ -62,7 +62,7 @@ public class Storage {
 
             return identifier;
         } catch (IOException ex) {
-            throw new RuntimeException("Could not store file " + identifier + ". Please try again!", ex);
+            return null;
         }
     }
 }

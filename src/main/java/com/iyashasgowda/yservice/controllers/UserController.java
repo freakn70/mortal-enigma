@@ -2,7 +2,7 @@ package com.iyashasgowda.yservice.controllers;
 
 import com.iyashasgowda.yservice.entities.User;
 import com.iyashasgowda.yservice.services.UserService;
-import com.iyashasgowda.yservice.utilities.DataResponse;
+import com.iyashasgowda.yservice.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,18 +15,15 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private Helper helper;
+
     @GetMapping("/")
     public ResponseEntity<?> getAllUsers() {
         try {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.OK, "success", service.getAllUsers()),
-                    HttpStatus.OK
-            );
+            return helper.successResponse(service.getAllUsers());
         } catch (Exception e) {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            return helper.errorResponse(e);
         }
     }
 
@@ -36,54 +33,32 @@ public class UserController {
             User user = service.getUser(id);
 
             if (user != null)
-                return new ResponseEntity<>(
-                        new DataResponse(HttpStatus.OK, "success", user),
-                        HttpStatus.OK
-                );
+                return helper.successResponse(user);
             else
-                return new ResponseEntity<>(
-                        new DataResponse(HttpStatus.NOT_FOUND, "No user found!", null),
-                        HttpStatus.NOT_FOUND
-                );
+                return helper.customResponse(HttpStatus.NOT_FOUND, "No user found!", null);
         } catch (Exception e) {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            return helper.errorResponse(e);
         }
     }
 
     @PostMapping("/")
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {
-            if (user != null) {
-                return new ResponseEntity<>(
-                        new DataResponse(HttpStatus.OK, "success", service.createUser(user)),
-                        HttpStatus.OK
-                );
-            } else
-                return new ResponseEntity<>(
-                        new DataResponse(HttpStatus.BAD_REQUEST, "Invalid request body!", null),
-                        HttpStatus.BAD_REQUEST
-                );
+            if (user != null)
+                return helper.successResponse(service.createUser(user));
+            else
+                return helper.customResponse(HttpStatus.BAD_REQUEST, "Invalid request body!", null);
         } catch (Exception e) {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            return helper.errorResponse(e);
         }
     }
 
     @GetMapping("/validate/{username}")
     public ResponseEntity<?> getUsernames(@PathVariable("username") String username) {
         try {
-            return ResponseEntity
-                    .ok()
-                    .body(new DataResponse(HttpStatus.OK, "success", service.validateUsername(username)));
+            return helper.successResponse(service.validateUsername(username));
         } catch (Exception e) {
-            return ResponseEntity
-                    .internalServerError()
-                    .body(new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null));
+            return helper.errorResponse(e);
         }
     }
 
@@ -91,17 +66,11 @@ public class UserController {
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {
             if (user != null) {
-                return ResponseEntity
-                        .ok()
-                        .body(new DataResponse(HttpStatus.OK, "success", service.updateUser(user)));
+                return helper.successResponse(service.updateUser(user));
             } else
-                return ResponseEntity
-                        .badRequest()
-                        .body(new DataResponse(HttpStatus.BAD_REQUEST, "Invalid request body!", null));
+                return helper.customResponse(HttpStatus.BAD_REQUEST, "Invalid request body!", null);
         } catch (Exception e) {
-            return ResponseEntity
-                    .internalServerError()
-                    .body(new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null));
+            return helper.errorResponse(e);
         }
     }
 
@@ -109,17 +78,11 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
         try {
             if (service.deleteUSer(id))
-                return ResponseEntity
-                        .ok()
-                        .body(new DataResponse(HttpStatus.OK, "success", null));
+                return helper.successResponse(null);
             else
-                return ResponseEntity
-                        .internalServerError()
-                        .body(new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error while deleting the user!", null));
+                return helper.customResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error while deleting the user!", null);
         } catch (Exception e) {
-            return ResponseEntity
-                    .internalServerError()
-                    .body(new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null));
+            return helper.errorResponse(e);
         }
     }
 }

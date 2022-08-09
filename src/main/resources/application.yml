@@ -1,7 +1,12 @@
 server:
-  port: 1997
+  #port: 1997   #prod
+  port: 1998   #dev
 
 spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
   servlet:
     multipart:
       max-file-size: 1GB

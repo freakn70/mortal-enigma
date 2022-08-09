@@ -2,7 +2,7 @@ package com.iyashasgowda.yservice.controllers;
 
 import com.iyashasgowda.yservice.entities.Media;
 import com.iyashasgowda.yservice.services.MediaService;
-import com.iyashasgowda.yservice.utilities.DataResponse;
+import com.iyashasgowda.yservice.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,57 +16,38 @@ public class MediaController {
     @Autowired
     private MediaService service;
 
+    @Autowired
+    private Helper helper;
+
     @GetMapping("/videos")
     public ResponseEntity<?> getVideos() {
         try {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.OK, "success", service.getVideos()),
-                    HttpStatus.OK
-            );
+            return helper.successResponse(service.getVideos());
         } catch (Exception e) {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            return helper.errorResponse(e);
         }
     }
 
     @GetMapping("/images")
     public ResponseEntity<?> getImages() {
         try {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.OK, "success", service.getImages()),
-                    HttpStatus.OK
-            );
+            return helper.successResponse(service.getImages());
         } catch (Exception e) {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            return helper.errorResponse(e);
         }
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadMedia(@RequestParam MultipartFile file) {
+    public ResponseEntity<?> uploadMedia(@RequestParam MultipartFile file, @RequestParam long user_id) {
         try {
-            Media media = service.saveFile(file);
+            Media media = service.saveFile(file, user_id);
 
             if (media != null)
-                return new ResponseEntity<>(
-                        new DataResponse(HttpStatus.OK, "success", media),
-                        HttpStatus.OK
-                );
+                return helper.successResponse(media);
             else
-                return new ResponseEntity<>(
-                        new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error while saving the file!", null),
-                        HttpStatus.INTERNAL_SERVER_ERROR
-                );
-
+                return helper.customResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error while saving the file!", null);
         } catch (Exception e) {
-            return new ResponseEntity<>(
-                    new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null),
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            return helper.errorResponse(e);
         }
     }
 }

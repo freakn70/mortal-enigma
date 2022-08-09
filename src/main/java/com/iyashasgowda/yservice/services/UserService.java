@@ -5,11 +5,12 @@ import com.iyashasgowda.yservice.repositories.UserRepository;
 import com.iyashasgowda.yservice.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -19,25 +20,14 @@ public class UserService {
     private Helper helper;
 
     public List<User> getAllUsers() {
-        return repository
-                .findAll()
-                .stream()
-                .peek(u -> u.setPassword(helper.decrypt(u.getPassword())))
-                .collect(Collectors.toList());
+        return repository.findAll();
     }
 
     public User getUser(long id) {
-        User user = repository.findById(id).orElse(null);
-
-        if (user != null) {
-            user.setPassword(helper.decrypt(user.getPassword()));
-            return user;
-        }
-        return null;
+        return repository.findById(id).orElse(null);
     }
 
     public User createUser(User user) {
-        user.setActive(true);
         user.setPassword(helper.encrypt(user.getPassword()));
         return repository.save(user);
     }
@@ -45,6 +35,10 @@ public class UserService {
     public User updateUser(User user) {
         user.setPassword(helper.encrypt(user.getPassword()));
         return repository.save(user);
+    }
+
+    public void incrementUploads(long user_id) {
+        repository.incrementUploads(user_id);
     }
 
     public boolean validateUsername(String username) {

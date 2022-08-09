@@ -1,6 +1,7 @@
 package com.iyashasgowda.yservice.services;
 
 import com.iyashasgowda.yservice.entities.Media;
+import com.iyashasgowda.yservice.entities.User;
 import com.iyashasgowda.yservice.repositories.MediaRepository;
 import com.iyashasgowda.yservice.utilities.Helper;
 import com.iyashasgowda.yservice.utilities.MediaType;
@@ -19,36 +20,51 @@ public class MediaService {
     private Storage storage;
 
     @Autowired
-    private MediaRepository repository;
+    private MediaRepository mediaRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private Helper helper;
 
-    public Media saveFile(MultipartFile file) {
+    public Media saveFile(MultipartFile file, long user_id) {
         String filename = file.getOriginalFilename();
         MediaType type = helper.getMediaType(file);
         long size = helper.getMediaSize(file);
+        User user = userService.getUser(user_id);
+        String identifier = null;
+        String url = null;
 
         if (type == MediaType.VIDEO) {
-            String identifier = storage.storeVideo(file);
-            String url = MEDIA_PATH + "/videos/" + identifier;
-
-            return repository.save(new Media(0, identifier, filename, size, url, type));
+            identifier = storage.storeVideo(file);
+            url = MEDIA_PATH + "/videos/" + identifier;
         } else if (type == MediaType.IMAGE) {
-            String identifier = storage.storeImage(file);
-            String url = MEDIA_PATH + "/images/" + identifier;
-
-            return repository.save(new Media(0, identifier, filename, size, url, type));
+            identifier = storage.storeImage(file);
+            url = MEDIA_PATH + "/images/" + identifier;
         }
 
+        if (identifier != null) {
+            userService.incrementUploads(user_id);
+            return mediaRepository.save(
+                    new Media(
+                            identifier,
+                            user,
+                            filename,
+                            size,
+                            url,
+                            type
+                    )
+            );
+        }
         return null;
     }
 
     public List<Media> getImages() {
-        return repository.findByType(MediaType.IMAGE);
+        return mediaRepository.findByType(MediaType.IMAGE);
     }
 
     public List<Media> getVideos() {
-        return repository.findByType(MediaType.VIDEO);
+        return mediaRepository.findByType(MediaType.VIDEO);
     }
 }
