@@ -17,7 +17,7 @@ public class CommentController {
     @Autowired
     private Helper helper;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> addComment(@RequestBody Comment comment) {
         try {
             return helper.successResponse(service.saveComment(comment));

@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private Helper helper;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> getAllUsers() {
         try {
             return helper.successResponse(service.getAllUsers());
@@ -41,7 +41,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {
             if (user != null)
@@ -62,7 +62,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {
             if (user != null) {

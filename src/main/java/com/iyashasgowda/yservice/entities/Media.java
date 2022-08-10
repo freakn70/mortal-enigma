@@ -30,7 +30,7 @@ public class Media implements Serializable {
     @Column(unique = true, length = 18, nullable = false)
     private String identifier;
 
-    @Column(nullable = false)
+    @Column(length = Integer.MAX_VALUE, nullable = false)
     @Nationalized
     private String filename;
 
