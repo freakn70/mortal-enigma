@@ -16,6 +16,7 @@ import java.util.Date;
 public class Storage {
     private final Path VIDEO_STORAGE_LOCATION;
     private final Path IMAGE_STORAGE_LOCATION;
+    private final Path DELETED_MEDIA_LOCATION;
 
     @Autowired
     private Helper helper;
@@ -32,9 +33,15 @@ public class Storage {
                 .toAbsolutePath()
                 .normalize();
 
+        this.DELETED_MEDIA_LOCATION = Paths
+                .get(env.getProperty("app.file.deleted-upload-dir", "./uploads/deleted"))
+                .toAbsolutePath()
+                .normalize();
+
         try {
             Files.createDirectories(this.VIDEO_STORAGE_LOCATION);
             Files.createDirectories(this.IMAGE_STORAGE_LOCATION);
+            Files.createDirectories(this.DELETED_MEDIA_LOCATION);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,8 +56,9 @@ public class Storage {
 
             return identifier;
         } catch (IOException ex) {
-            return null;
+            ex.printStackTrace();
         }
+        return null;
     }
 
     public String storeImage(MultipartFile file) {
@@ -64,5 +72,24 @@ public class Storage {
         } catch (IOException ex) {
             return null;
         }
+    }
+
+    public boolean removeMedia(String identifier, MediaType type) {
+        try {
+            Path source_location;
+            if (type == MediaType.VIDEO)
+                source_location = VIDEO_STORAGE_LOCATION.resolve(identifier);
+            else if (type == MediaType.IMAGE)
+                source_location = IMAGE_STORAGE_LOCATION.resolve(identifier);
+            else return false;
+
+            Path destination_location = DELETED_MEDIA_LOCATION.resolve("deleted_".concat(identifier));
+            Files.move(source_location, destination_location, StandardCopyOption.REPLACE_EXISTING);
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

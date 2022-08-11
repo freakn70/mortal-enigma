@@ -41,6 +41,18 @@ public class UserService {
         repository.incrementUploads(user_id);
     }
 
+    public void decrementUploads(long user_id) {
+        repository.decrementUploads(user_id);
+    }
+
+    public void incrementLikes(long user_id) {
+        repository.incrementLikes(user_id);
+    }
+
+    public void decrementLikes(long user_id) {
+        repository.decrementLikes(user_id);
+    }
+
     public boolean validateUsername(String username) {
         return repository.findUsersByUsername(username).size() == 0;
     }

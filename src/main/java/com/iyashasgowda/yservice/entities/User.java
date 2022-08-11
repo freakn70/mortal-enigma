@@ -40,6 +40,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     private long uploads = 0;
 
+    @Column(nullable = false)
+    private long likes = 0;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date created_on;

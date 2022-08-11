@@ -1,13 +1,13 @@
 package com.iyashasgowda.yservice.services;
 
 import com.iyashasgowda.yservice.entities.Media;
-import com.iyashasgowda.yservice.entities.User;
 import com.iyashasgowda.yservice.repositories.MediaRepository;
 import com.iyashasgowda.yservice.utilities.Helper;
 import com.iyashasgowda.yservice.utilities.MediaType;
 import com.iyashasgowda.yservice.utilities.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -15,6 +15,7 @@ import java.util.List;
 import static com.iyashasgowda.yservice.utilities.Constants.MEDIA_PATH;
 
 @Service
+@Transactional
 public class MediaService {
     @Autowired
     private Storage storage;
@@ -29,10 +30,7 @@ public class MediaService {
     private Helper helper;
 
     public Media saveFile(MultipartFile file, long user_id) {
-        String filename = file.getOriginalFilename();
         MediaType type = helper.getMediaType(file);
-        long size = helper.getMediaSize(file);
-        User user = userService.getUser(user_id);
         String identifier = null;
         String url = null;
 
@@ -49,15 +47,38 @@ public class MediaService {
             return mediaRepository.save(
                     new Media(
                             identifier,
-                            user,
-                            filename,
-                            size,
+                            userService.getUser(user_id),
+                            file.getOriginalFilename(),
+                            helper.getMediaSize(file),
                             url,
                             type
                     )
             );
         }
         return null;
+    }
+
+    public boolean removeFile(long media_id, long user_id) {
+        Media media = mediaRepository.findById(media_id).orElse(null);
+
+        if (media != null) {
+            boolean removed = storage.removeMedia(media.getIdentifier(), media.getType());
+
+            if (removed) {
+                mediaRepository.deleteById(media_id);
+                userService.decrementUploads(user_id);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void incrementLikes(long user_id) {
+        mediaRepository.incrementLikes(user_id);
+    }
+
+    public void decrementLikes(long user_id) {
+        mediaRepository.decrementLikes(user_id);
     }
 
     public List<Media> getImages() {

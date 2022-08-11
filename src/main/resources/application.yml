@@ -1,5 +1,5 @@
 server:
-  #port: 1997   #prod
+#  port: 1997   #prod
   port: 1998   #dev
 
 spring:

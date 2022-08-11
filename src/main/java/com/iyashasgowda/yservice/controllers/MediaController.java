@@ -50,4 +50,16 @@ public class MediaController {
             return helper.errorResponse(e);
         }
     }
+
+    @DeleteMapping("/remove/{media_id}/{user_id}")
+    public ResponseEntity<?> removeMedia(@PathVariable("media_id") long media_id, @PathVariable("user_id") long user_id) {
+        try {
+            if (service.removeFile(media_id, user_id))
+                return helper.successResponse(null);
+            else
+                return helper.customResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete media!", null);
+        } catch (Exception e) {
+            return helper.errorResponse(e);
+        }
+    }
 }
