@@ -31,6 +31,7 @@ public class MediaService {
 
     public Media saveFile(MultipartFile file, long user_id) {
         MediaType type = helper.getMediaType(file);
+        String filename = file.getOriginalFilename();
         String identifier = null;
         String url = null;
 
@@ -42,18 +43,14 @@ public class MediaService {
             url = MEDIA_PATH + "/images/" + identifier;
         }
 
+        if (filename != null && filename.indexOf(".") > 0 && helper.getFileExtension(file) != null)
+            filename = filename.substring(0, filename.lastIndexOf("."));
+        else
+            filename = identifier;
+
         if (identifier != null) {
             userService.incrementUploads(user_id);
-            return mediaRepository.save(
-                    new Media(
-                            identifier,
-                            userService.getUser(user_id),
-                            file.getOriginalFilename(),
-                            helper.getMediaSize(file),
-                            url,
-                            type
-                    )
-            );
+            return mediaRepository.save(new Media(identifier, userService.getUser(user_id), filename, helper.getMediaSize(file), url, type));
         }
         return null;
     }
@@ -62,7 +59,7 @@ public class MediaService {
         Media media = mediaRepository.findById(media_id).orElse(null);
 
         if (media != null) {
-            boolean removed = storage.removeMedia(media.getIdentifier(), media.getType());
+            boolean removed = storage.removeMedia(media.getFilename(), media.getType());
 
             if (removed) {
                 mediaRepository.deleteById(media_id);

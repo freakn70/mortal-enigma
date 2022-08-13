@@ -28,11 +28,11 @@ public class Media implements Serializable {
     private User user;
 
     @Column(unique = true, length = 18, nullable = false)
-    private String identifier;
+    private String filename;
 
     @Column(length = Integer.MAX_VALUE, nullable = false)
     @Nationalized
-    private String filename;
+    private String title;
 
     @Column(nullable = false)
     private long size = 0;
@@ -53,10 +53,10 @@ public class Media implements Serializable {
     @CreationTimestamp
     private Date created_on;
 
-    public Media(String identifier, User user_id, String filename, long size, String url, MediaType type) {
-        this.identifier = identifier;
-        this.user = user_id;
+    public Media(String filename, User user_id, String title, long size, String url, MediaType type) {
         this.filename = filename;
+        this.user = user_id;
+        this.title = title;
         this.size = size;
         this.url = url;
         this.type = type;
