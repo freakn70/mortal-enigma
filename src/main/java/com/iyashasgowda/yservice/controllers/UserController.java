@@ -27,10 +27,24 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<?> getUser(@PathVariable("id") long id) {
         try {
             User user = service.getUser(id);
+
+            if (user != null)
+                return helper.successResponse(user);
+            else
+                return helper.customResponse(HttpStatus.NOT_FOUND, "No user found!", null);
+        } catch (Exception e) {
+            return helper.errorResponse(e);
+        }
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<?> getUserByEmail(@PathVariable("email") String email) {
+        try {
+            User user = service.getUserByEmail(email);
 
             if (user != null)
                 return helper.successResponse(user);

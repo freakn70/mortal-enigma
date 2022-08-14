@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUsersByUsername(String username);
 
+    User findByEmail(String email);
+
     @Modifying
     @Query("update User u SET u.uploads = u.uploads + 1 WHERE u.id = ?1")
     void incrementUploads(long user_id);
