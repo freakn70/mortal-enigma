@@ -1,8 +1,6 @@
 package com.iyashasgowda.yservice.utilities;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,26 +59,5 @@ public class Helper {
 
     public long getMediaSize(MultipartFile file) {
         return file.getSize();
-    }
-
-    public ResponseEntity<?> errorResponse(Exception e) {
-        return new ResponseEntity<>(
-                new DataResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
-    }
-
-    public ResponseEntity<?> successResponse(Object data) {
-        return new ResponseEntity<>(
-                new DataResponse(HttpStatus.OK, "success", data),
-                HttpStatus.OK
-        );
-    }
-
-    public ResponseEntity<?> customResponse(HttpStatus status, String message, Object data) {
-        return new ResponseEntity<>(
-                new DataResponse(status, message, data),
-                status
-        );
     }
 }

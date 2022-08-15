@@ -2,8 +2,8 @@ package com.iyashasgowda.yservice.controllers;
 
 import com.iyashasgowda.yservice.entities.Like;
 import com.iyashasgowda.yservice.services.LikeService;
-import com.iyashasgowda.yservice.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,16 +14,13 @@ public class LikeController {
     @Autowired
     private LikeService service;
 
-    @Autowired
-    private Helper helper;
-
     @PostMapping
     public ResponseEntity<?> addLike(@RequestBody Like like) {
         try {
             service.addLike(like);
-            return helper.successResponse(null);
+            return new ResponseEntity<>("success", HttpStatus.OK);
         } catch (Exception e) {
-            return helper.errorResponse(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -31,9 +28,9 @@ public class LikeController {
     public ResponseEntity<?> removeLike(@PathVariable("media_id") long media_id, @PathVariable("user_id") long user_id) {
         try {
             service.removeLike(media_id, user_id);
-            return helper.successResponse(null);
+            return new ResponseEntity<>("success", HttpStatus.OK);
         } catch (Exception e) {
-            return helper.errorResponse(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

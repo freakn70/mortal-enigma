@@ -2,7 +2,6 @@ package com.iyashasgowda.yservice.controllers;
 
 import com.iyashasgowda.yservice.entities.Media;
 import com.iyashasgowda.yservice.services.MediaService;
-import com.iyashasgowda.yservice.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +15,21 @@ public class MediaController {
     @Autowired
     private MediaService service;
 
-    @Autowired
-    private Helper helper;
-
     @GetMapping("/videos")
     public ResponseEntity<?> getVideos() {
         try {
-            return helper.successResponse(service.getVideos());
+            return new ResponseEntity<>(service.getVideos(), HttpStatus.OK);
         } catch (Exception e) {
-            return helper.errorResponse(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/images")
     public ResponseEntity<?> getImages() {
         try {
-            return helper.successResponse(service.getImages());
+            return new ResponseEntity<>(service.getImages(), HttpStatus.OK);
         } catch (Exception e) {
-            return helper.errorResponse(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -43,11 +39,11 @@ public class MediaController {
             Media media = service.saveFile(file, user_id);
 
             if (media != null)
-                return helper.successResponse(media);
+                return new ResponseEntity<>(media, HttpStatus.OK);
             else
-                return helper.customResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error while saving the file!", null);
+                return new ResponseEntity<>("Error while saving the file!", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
-            return helper.errorResponse(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -55,11 +51,11 @@ public class MediaController {
     public ResponseEntity<?> removeMedia(@PathVariable("media_id") long media_id, @PathVariable("user_id") long user_id) {
         try {
             if (service.removeFile(media_id, user_id))
-                return helper.successResponse(null);
+                return new ResponseEntity<>("success", HttpStatus.OK);
             else
-                return helper.customResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete media!", null);
+                return new ResponseEntity<>("Failed to delete media!", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
-            return helper.errorResponse(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
