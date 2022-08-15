@@ -31,9 +31,13 @@ public class UserService {
         return repository.findByEmail(email);
     }
 
+    public User getUserByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
     public User createUser(User user) {
-        List<User> users = repository.findUsersByUsername(user.getUsername());
-        if (users.size() > 0) user.setUsername(helper.generateUsername(user.getUsername()));
+        User existingUser = repository.findByUsername(user.getUsername());
+        if (existingUser != null) user.setUsername(helper.generateUsername(user.getUsername()));
         user.setPassword(helper.decrypt(user.getPassword()));
         return repository.save(user);
     }
@@ -60,7 +64,7 @@ public class UserService {
     }
 
     public boolean validateUsername(String username) {
-        return repository.findUsersByUsername(username).size() == 0;
+        return repository.findByUsername(username) == null;
     }
 
     public boolean deleteUser(long id) {

@@ -51,6 +51,20 @@ public class UserController {
         }
     }
 
+    @GetMapping("/username/{username}")
+    public ResponseEntity<?> getUserByUsername(@PathVariable("username") String username) {
+        try {
+            User user = service.getUserByUsername(username);
+
+            if (user != null)
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            else
+                return new ResponseEntity<>("No user found with username " + username, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {
