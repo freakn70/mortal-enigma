@@ -87,7 +87,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
         try {
-            if (service.deleteUSer(id))
+            if (service.deleteUser(id))
                 return new ResponseEntity<>("success", HttpStatus.OK);
             else
                 return new ResponseEntity<>("Error while deleting the user!", HttpStatus.INTERNAL_SERVER_ERROR);

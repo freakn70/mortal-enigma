@@ -8,6 +8,9 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Arrays;
+import java.util.Random;
+
+import static com.iyashasgowda.yservice.utilities.Constants.A2Z;
 
 @Component
 public class Helper {
@@ -40,6 +43,16 @@ public class Helper {
         } catch (Exception e) {
             return new String(Base64.decodeBase64(password.getBytes()));
         }
+    }
+
+    public String generateUsername(String name) {
+        if (name.length() > 16) name = name.substring(0, 11);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 16 - name.length(); i++)
+            sb.append(A2Z.charAt(new Random().nextInt(A2Z.length())));
+
+        return name.concat(sb.toString());
     }
 
     public String getFileExtension(MultipartFile file) {

@@ -32,12 +32,14 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        user.setPassword(helper.encrypt(user.getPassword()));
+        List<User> users = repository.findUsersByUsername(user.getUsername());
+        if (users.size() > 0) user.setUsername(helper.generateUsername(user.getUsername()));
+        user.setPassword(helper.decrypt(user.getPassword()));
         return repository.save(user);
     }
 
     public User updateUser(User user) {
-        user.setPassword(helper.encrypt(user.getPassword()));
+        user.setPassword(helper.decrypt(user.getPassword()));
         return repository.save(user);
     }
 
@@ -61,7 +63,7 @@ public class UserService {
         return repository.findUsersByUsername(username).size() == 0;
     }
 
-    public boolean deleteUSer(long id) {
+    public boolean deleteUser(long id) {
         repository.deleteById(id);
         return true;
     }

@@ -22,7 +22,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true, length = 25, nullable = false)
+    @Column(unique = true, length = 16, nullable = false)
     private String username;
 
     @Column(length = 50)
