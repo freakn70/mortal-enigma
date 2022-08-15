@@ -38,12 +38,10 @@ public class UserService {
     public User createUser(User user) {
         User existingUser = repository.findByUsername(user.getUsername());
         if (existingUser != null) user.setUsername(helper.generateUsername(user.getUsername()));
-        user.setPassword(helper.decrypt(user.getPassword()));
         return repository.save(user);
     }
 
     public User updateUser(User user) {
-        user.setPassword(helper.decrypt(user.getPassword()));
         return repository.save(user);
     }
 

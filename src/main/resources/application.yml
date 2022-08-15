@@ -1,6 +1,6 @@
 server:
-  #  port: 1997   #production
-  port: 1998   #development
+  port: 1997   #production
+#  port: 1998   #development
 #  port: 1999   #local
 
 spring:
@@ -14,8 +14,8 @@ spring:
       max-request-size: 1GB
 
   datasource:
-    #    url: jdbc:sqlserver://49.206.228.34:1433;databaseName=ydb;encrypt=true;trustServerCertificate=true;
-    url: jdbc:sqlserver://192.168.0.105:1433;databaseName=ydb_dev;encrypt=true;trustServerCertificate=true;
+    url: jdbc:sqlserver://49.206.228.34:1433;databaseName=ydb;encrypt=true;trustServerCertificate=true;
+    #    url: jdbc:sqlserver://192.168.0.105:1433;databaseName=ydb_dev;encrypt=true;trustServerCertificate=true;
     username: sa
     password: Yashas@003
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

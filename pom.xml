@@ -44,7 +44,7 @@
     </dependencies>
 
     <build>
-        <finalName>y-service-dev</finalName>
+        <finalName>y-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
