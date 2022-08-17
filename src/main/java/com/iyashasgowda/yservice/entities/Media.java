@@ -43,6 +43,8 @@ public class Media implements Serializable {
     @Column(nullable = false)
     private MediaType type;
 
+    private long duration = 0;
+
     @Column(nullable = false)
     private long views = 0;
 
@@ -53,11 +55,12 @@ public class Media implements Serializable {
     @CreationTimestamp
     private Date created_on;
 
-    public Media(String filename, User user_id, String title, long size, String url, MediaType type) {
+    public Media(String filename, User user_id, String title, long size, long duration, String url, MediaType type) {
         this.filename = filename;
         this.user = user_id;
         this.title = title;
         this.size = size;
+        this.duration = duration;
         this.url = url;
         this.type = type;
     }

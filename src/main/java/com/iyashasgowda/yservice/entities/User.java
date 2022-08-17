@@ -31,11 +31,14 @@ public class User implements Serializable {
     @Column(unique = true, length = 50, nullable = false)
     private String email;
 
-    @Column(unique = true, length = 10)
+    @Column(length = 10)
     private String mobile;
 
     @Column(length = Integer.MAX_VALUE)
     private String password;
+
+    @Column(length = Integer.MAX_VALUE)
+    private String image_url;
 
     @Column(nullable = false)
     private long uploads = 0;

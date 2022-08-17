@@ -2,10 +2,14 @@ package com.iyashasgowda.yservice.utilities;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ws.schild.jave.MultimediaObject;
+import ws.schild.jave.info.MultimediaInfo;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Random;
@@ -68,6 +72,22 @@ public class Helper {
         if (Arrays.asList(Constants.VIDEO_EXT).contains(extension)) return MediaType.VIDEO;
         if (Arrays.asList(Constants.IMAGE_EXT).contains(extension)) return MediaType.IMAGE;
         return MediaType.INVALID;
+    }
+
+    public long getMediaDuration(MultipartFile multipart) {
+        long duration = 0L;
+        if (multipart.getOriginalFilename() != null) {
+            File file = new File(multipart.getOriginalFilename());
+            try {
+                FileCopyUtils.copy(multipart.getBytes(), file);
+                MultimediaInfo result = new MultimediaObject(file).getInfo();
+                duration = result.getDuration() / 1000;
+                file.delete();
+            } catch (Exception e) {
+                return duration;
+            }
+        }
+        return duration;
     }
 
     public long getMediaSize(MultipartFile file) {

@@ -34,10 +34,12 @@ public class MediaService {
         String filename = file.getOriginalFilename();
         String identifier = null;
         String url = null;
+        long duration = 0L;
 
         if (type == MediaType.VIDEO) {
             identifier = storage.storeVideo(file);
             url = MEDIA_PATH + "/videos/" + identifier;
+            duration = helper.getMediaDuration(file);
         } else if (type == MediaType.IMAGE) {
             identifier = storage.storeImage(file);
             url = MEDIA_PATH + "/images/" + identifier;
@@ -50,7 +52,17 @@ public class MediaService {
 
         if (identifier != null) {
             userService.incrementUploads(user_id);
-            return mediaRepository.save(new Media(identifier, userService.getUser(user_id), filename, helper.getMediaSize(file), url, type));
+            return mediaRepository.save(
+                    new Media(
+                            identifier,
+                            userService.getUser(user_id),
+                            filename,
+                            helper.getMediaSize(file),
+                            duration,
+                            url,
+                            type
+                    )
+            );
         }
         return null;
     }
