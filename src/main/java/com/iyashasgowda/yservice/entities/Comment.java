@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -34,7 +32,6 @@ public class Comment implements Serializable {
     @Nationalized
     private String comment;
 
-    @Column(nullable = false)
-    @CreationTimestamp
-    private Date created_on;
+    @Column(nullable = false, updatable = false)
+    private long created_on = System.currentTimeMillis();
 }

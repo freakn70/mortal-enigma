@@ -5,12 +5,10 @@ import com.iyashasgowda.yservice.utilities.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -51,9 +49,8 @@ public class Media implements Serializable {
     @Column(nullable = false)
     private long likes = 0;
 
-    @Column(nullable = false)
-    @CreationTimestamp
-    private Date created_on;
+    @Column(nullable = false, updatable = false)
+    private long created_on = System.currentTimeMillis();
 
     public Media(String filename, User user_id, String title, long size, long duration, String url, MediaType type) {
         this.filename = filename;

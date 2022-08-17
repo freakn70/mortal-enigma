@@ -4,12 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -47,12 +44,7 @@ public class User implements Serializable {
     private long likes = 0;
 
     @Column(nullable = false, updatable = false)
-    @CreationTimestamp
-    private Date created_on;
-
-    @UpdateTimestamp
-    @Column(nullable = false)
-    private Date updated_on;
+    private long created_on = System.currentTimeMillis();
 
     @Column(nullable = false)
     private boolean active = true;
