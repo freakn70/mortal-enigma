@@ -36,6 +36,9 @@ public class MediaController {
     @PostMapping("/upload")
     public ResponseEntity<?> uploadMedia(@RequestParam MultipartFile file, @RequestParam long user_id) {
         try {
+            if (file.isEmpty())
+                return new ResponseEntity<>("No file found to upload!", HttpStatus.BAD_REQUEST);
+
             Media media = service.saveFile(file, user_id);
 
             if (media != null)

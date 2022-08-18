@@ -12,8 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import static com.iyashasgowda.yservice.utilities.Constants.MEDIA_PATH;
-
 @Service
 @Transactional
 public class MediaService {
@@ -30,39 +28,21 @@ public class MediaService {
     private Helper helper;
 
     public Media saveFile(MultipartFile file, long user_id) {
-        MediaType type = helper.getMediaType(file);
-        String filename = file.getOriginalFilename();
-        String identifier = null;
-        String url = null;
-        long duration = 0L;
+        Media media = new Media();
+        helper.setMediaType(media, file);
 
-        if (type == MediaType.VIDEO) {
-            identifier = storage.storeVideo(file);
-            url = MEDIA_PATH + "/videos/" + identifier;
-            duration = helper.getMediaDuration(file);
-        } else if (type == MediaType.IMAGE) {
-            identifier = storage.storeImage(file);
-            url = MEDIA_PATH + "/images/" + identifier;
-        }
+        if (media.getType() == MediaType.VIDEO) {
+            storage.storeVideo(media, file);
+            helper.setVideoMetadata(media, file);
+        } else if (media.getType() == MediaType.IMAGE) {
+            storage.storeImage(media, file);
+            helper.setImageMetadata(media, file);
+        } else return null;
 
-        if (filename != null && filename.indexOf(".") > 0 && helper.getFileExtension(file) != null)
-            filename = filename.substring(0, filename.lastIndexOf("."));
-        else
-            filename = identifier;
-
-        if (identifier != null) {
+        if (media.getFilename() != null) {
             userService.incrementUploads(user_id);
-            return mediaRepository.save(
-                    new Media(
-                            identifier,
-                            userService.getUser(user_id),
-                            filename,
-                            helper.getMediaSize(file),
-                            duration,
-                            url,
-                            type
-                    )
-            );
+            media.setUser(userService.getUser(user_id));
+            return mediaRepository.save(media);
         }
         return null;
     }
