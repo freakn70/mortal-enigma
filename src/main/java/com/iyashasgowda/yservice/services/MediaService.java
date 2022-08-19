@@ -6,6 +6,7 @@ import com.iyashasgowda.yservice.utilities.Helper;
 import com.iyashasgowda.yservice.utilities.MediaType;
 import com.iyashasgowda.yservice.utilities.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,5 +77,9 @@ public class MediaService {
 
     public List<Media> getVideos() {
         return mediaRepository.findByType(MediaType.VIDEO);
+    }
+
+    public List<Media> getTrendingImages(int limit) {
+        return mediaRepository.findByTypeOrderByLikesDesc(MediaType.IMAGE, PageRequest.of(0, limit));
     }
 }

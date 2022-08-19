@@ -33,6 +33,15 @@ public class MediaController {
         }
     }
 
+    @GetMapping("/images/trending/{limit}")
+    public ResponseEntity<?> getTrendingImages(@PathVariable("limit") int limit) {
+        try {
+            return new ResponseEntity<>(service.getTrendingImages(limit), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<?> uploadMedia(@RequestParam MultipartFile file, @RequestParam long user_id) {
         try {
