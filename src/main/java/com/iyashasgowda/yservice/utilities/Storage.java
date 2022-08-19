@@ -73,8 +73,8 @@ public class Storage {
 
     public void generateThumbnail(Media media) {
         String videoPath = VIDEO_STORAGE_LOCATION + "\\" + media.getFilename();
-        String identifier = System.currentTimeMillis() + ".jpeg";
-        String thumbPath = THUMB_STORAGE_LOCATION + "\\thumbnail_" + identifier;
+        String identifier = "thumbnail_" + System.currentTimeMillis() + ".jpeg";
+        String thumbPath = THUMB_STORAGE_LOCATION + "\\" + identifier;
         try {
             BufferedImage bi = AWTUtil.toBufferedImage(FrameGrab.getFrameFromFile(new File(videoPath), 1));
             ImageIO.write(Scalr.resize(bi, 480), "jpeg", new File(thumbPath));
@@ -84,7 +84,7 @@ public class Storage {
             media.setHeight(bi.getHeight());
 
             /* Setting thumbnail url */
-            media.setThumbnail(MEDIA_PATH + "/videos/thumbnails/" + identifier);
+            media.setThumbnail(MEDIA_PATH + "/videos/thumbs/" + identifier);
         } catch (IOException | JCodecException e) {
             e.printStackTrace();
         }
