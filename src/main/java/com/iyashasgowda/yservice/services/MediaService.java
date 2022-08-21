@@ -90,6 +90,10 @@ public class MediaService {
         iMediaRepository.incrementReports(media_id);
     }
 
+    public Media getMediaById(long media_id) {
+        return iMediaRepository.findById(media_id).orElse(null);
+    }
+
     public List<Media> getImages() {
         return iMediaRepository.findByType(MediaType.IMAGE);
     }
