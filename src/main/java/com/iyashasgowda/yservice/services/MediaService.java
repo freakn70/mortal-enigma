@@ -71,6 +71,14 @@ public class MediaService {
         mediaRepository.decrementLikes(user_id);
     }
 
+    public void incrementComments(long media_id) {
+        mediaRepository.incrementComments(media_id);
+    }
+
+    public void decrementComments(long media_id) {
+        mediaRepository.decrementComments(media_id);
+    }
+
     public List<Media> getImages() {
         return mediaRepository.findByType(MediaType.IMAGE);
     }

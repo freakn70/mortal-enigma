@@ -23,4 +23,12 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     @Modifying
     @Query("update Media m SET m.likes = m.likes - 1 WHERE m.id = ?1 AND m.likes > 0")
     void decrementLikes(long media_id);
+
+    @Modifying
+    @Query("update Media m SET m.comments = m.comments + 1 WHERE m.id = ?1")
+    void incrementComments(long media_id);
+
+    @Modifying
+    @Query("update Media m SET m.comments = m.comments - 1 WHERE m.id = ?1 AND m.comments > 0")
+    void decrementComments(long media_id);
 }

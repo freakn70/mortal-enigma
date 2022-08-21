@@ -23,6 +23,18 @@ public class CommentController {
         }
     }
 
+    @DeleteMapping("/remove/{media_id}/{comment_id}")
+    public ResponseEntity<?> removeComment(@PathVariable("media_id") long media_id, @PathVariable("comment_id") long comment_id) {
+        try {
+            if (service.removeComment(media_id, comment_id))
+                return new ResponseEntity<>("success", HttpStatus.OK);
+            else
+                return new ResponseEntity<>("Failed to delete comment!", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/{media_id}")
     public ResponseEntity<?> getComments(@PathVariable("media_id") long media_id) {
         try {
