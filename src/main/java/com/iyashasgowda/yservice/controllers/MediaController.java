@@ -15,6 +15,26 @@ public class MediaController {
     @Autowired
     private MediaService service;
 
+    @PutMapping("/views/{media_id}")
+    public ResponseEntity<?> incrementViews(@PathVariable("media_id") long media_id) {
+        try {
+            service.incrementViews(media_id);
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/reports/{media_id}")
+    public ResponseEntity<?> incrementReports(@PathVariable("media_id") long media_id) {
+        try {
+            service.incrementReports(media_id);
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/videos")
     public ResponseEntity<?> getVideos() {
         try {
@@ -37,6 +57,24 @@ public class MediaController {
     public ResponseEntity<?> getTrendingImages(@PathVariable("limit") int limit) {
         try {
             return new ResponseEntity<>(service.getTrendingImages(limit), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/videos/trending/{limit}")
+    public ResponseEntity<?> getTrendingVideos(@PathVariable("limit") int limit) {
+        try {
+            return new ResponseEntity<>(service.getTrendingVideos(limit), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/videos/related/{media_id}")
+    public ResponseEntity<?> getRelatedVideos(@PathVariable("media_id") long media_id) {
+        try {
+            return new ResponseEntity<>(service.getRelatedVideos(media_id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

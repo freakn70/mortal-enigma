@@ -1,7 +1,7 @@
 server:
   #  port: 1997   #production
-  #  port: 1998   #development
-  port: 1999   #local
+  port: 1998   #development
+#  port: 1999   #local
 
 spring:
   jackson:

@@ -65,6 +65,9 @@ public class Media implements Serializable {
     @Column(nullable = false)
     private long comments = 0;
 
+    @Column(nullable = false)
+    private long reports = 0;
+
     @Column(nullable = false, updatable = false)
     private long created_on = System.currentTimeMillis();
 }

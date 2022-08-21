@@ -1,7 +1,7 @@
 package com.iyashasgowda.yservice.services;
 
 import com.iyashasgowda.yservice.entities.User;
-import com.iyashasgowda.yservice.repositories.UserRepository;
+import com.iyashasgowda.yservice.repositories.IUserRepository;
 import com.iyashasgowda.yservice.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,59 +14,59 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    private UserRepository repository;
+    private IUserRepository iUserRepository;
 
     @Autowired
     private Helper helper;
 
     public List<User> getAllUsers() {
-        return repository.findAll();
+        return iUserRepository.findAll();
     }
 
     public User getUser(long id) {
-        return repository.findById(id).orElse(null);
+        return iUserRepository.findById(id).orElse(null);
     }
 
     public User getUserByEmail(String email) {
-        return repository.findByEmail(email);
+        return iUserRepository.findByEmail(email);
     }
 
     public User getUserByUsername(String username) {
-        return repository.findByUsername(username);
+        return iUserRepository.findByUsername(username);
     }
 
     public User createUser(User user) {
-        User existingUser = repository.findByUsername(user.getUsername());
+        User existingUser = iUserRepository.findByUsername(user.getUsername());
         if (existingUser != null) user.setUsername(helper.generateUsername(user.getUsername()));
-        return repository.save(user);
+        return iUserRepository.save(user);
     }
 
     public User updateUser(User user) {
-        return repository.save(user);
+        return iUserRepository.save(user);
     }
 
     public void incrementUploads(long user_id) {
-        repository.incrementUploads(user_id);
+        iUserRepository.incrementUploads(user_id);
     }
 
     public void decrementUploads(long user_id) {
-        repository.decrementUploads(user_id);
+        iUserRepository.decrementUploads(user_id);
     }
 
     public void incrementLikes(long user_id) {
-        repository.incrementLikes(user_id);
+        iUserRepository.incrementLikes(user_id);
     }
 
     public void decrementLikes(long user_id) {
-        repository.decrementLikes(user_id);
+        iUserRepository.decrementLikes(user_id);
     }
 
     public boolean validateUsername(String username) {
-        return repository.findByUsername(username) == null;
+        return iUserRepository.findByUsername(username) == null;
     }
 
     public boolean deleteUser(long id) {
-        repository.deleteById(id);
+        iUserRepository.deleteById(id);
         return true;
     }
 }

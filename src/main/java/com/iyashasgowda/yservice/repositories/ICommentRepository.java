@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface ICommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> findByMedia_Id(long media_id);
 
     List<Comment> findByMedia_IdAndUser_Id(long media_id, long user_id);

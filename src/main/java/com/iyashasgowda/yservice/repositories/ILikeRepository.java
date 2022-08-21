@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LikeRepository extends JpaRepository<Like, Long> {
+public interface ILikeRepository extends JpaRepository<Like, Long> {
     void deleteByMediaIdAndUserId(long media_id, long user_id);
 }

@@ -47,5 +47,8 @@ public class User implements Serializable {
     private long created_on = System.currentTimeMillis();
 
     @Column(nullable = false)
+    private boolean verified = false;
+
+    @Column(nullable = false)
     private boolean active = true;
 }

@@ -1,7 +1,7 @@
 package com.iyashasgowda.yservice.services;
 
 import com.iyashasgowda.yservice.entities.Like;
-import com.iyashasgowda.yservice.repositories.LikeRepository;
+import com.iyashasgowda.yservice.repositories.ILikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikeService {
 
     @Autowired
-    private LikeRepository likeRepository;
+    private ILikeRepository iLikeRepository;
 
     @Autowired
     private MediaService mediaService;
@@ -23,13 +23,13 @@ public class LikeService {
         mediaService.incrementLikes(like.getMedia().getId());
         userService.incrementLikes(like.getUser().getId());
 
-        likeRepository.save(like);
+        iLikeRepository.save(like);
     }
 
     public void removeLike(long media_id, long user_id) {
         mediaService.decrementLikes(media_id);
         userService.decrementLikes(user_id);
 
-        likeRepository.deleteByMediaIdAndUserId(media_id, user_id);
+        iLikeRepository.deleteByMediaIdAndUserId(media_id, user_id);
     }
 }
