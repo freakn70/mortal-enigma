@@ -15,17 +15,14 @@ public class CommentService {
     @Autowired
     private ICommentRepository iCommentRepository;
 
-    @Autowired
-    private MediaService mediaService;
-
     public Comment saveComment(Comment comment) {
-        mediaService.incrementComments(comment.getMedia().getId());
+        iCommentRepository.incrementComments(comment.getMedia().getId());
         return iCommentRepository.save(comment);
     }
 
     public boolean removeComment(long media_id, long comment_id) {
         iCommentRepository.deleteById(comment_id);
-        mediaService.decrementComments(media_id);
+        iCommentRepository.decrementComments(media_id);
         return true;
     }
 

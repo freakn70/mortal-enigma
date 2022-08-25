@@ -53,14 +53,6 @@ public class UserService {
         iUserRepository.decrementUploads(user_id);
     }
 
-    public void incrementLikes(long user_id) {
-        iUserRepository.incrementLikes(user_id);
-    }
-
-    public void decrementLikes(long user_id) {
-        iUserRepository.decrementLikes(user_id);
-    }
-
     public boolean validateUsername(String username) {
         return iUserRepository.findByUsername(username) == null;
     }

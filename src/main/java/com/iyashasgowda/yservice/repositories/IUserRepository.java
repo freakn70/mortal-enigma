@@ -19,12 +19,4 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.uploads = u.uploads - 1 WHERE u.id = ?1 AND u.uploads > 0")
     void decrementUploads(long user_id);
-
-    @Modifying
-    @Query("UPDATE User u SET u.likes = u.likes + 1 WHERE u.id = ?1")
-    void incrementLikes(long user_id);
-
-    @Modifying
-    @Query("UPDATE User u SET u.likes = u.likes - 1 WHERE u.id = ?1 AND u.likes > 0")
-    void decrementLikes(long user_id);
 }

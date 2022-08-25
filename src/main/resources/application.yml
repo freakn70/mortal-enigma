@@ -1,7 +1,7 @@
 server:
   #  port: 1997   #production
-  port: 1998   #development
-#  port: 1999   #local
+  #  port: 1998   #development
+  port: 1999   #local
 
 spring:
   jackson:
@@ -10,8 +10,9 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 1GB
-      max-request-size: 1GB
+      enabled: true
+      max-file-size: 10GB
+      max-request-size: 10GB
 
   datasource:
     #    url: jdbc:sqlserver://49.206.228.34:1433;databaseName=ydb;encrypt=true;trustServerCertificate=true;

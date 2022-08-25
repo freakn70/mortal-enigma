@@ -13,23 +13,19 @@ public class LikeService {
     @Autowired
     private ILikeRepository iLikeRepository;
 
-    @Autowired
-    private MediaService mediaService;
-
-    @Autowired
-    private UserService userService;
-
     public void addLike(Like like) {
-        mediaService.incrementLikes(like.getMedia().getId());
-        userService.incrementLikes(like.getUser().getId());
-
+        iLikeRepository.incrementMediaLikes(like.getMedia().getId());
+        iLikeRepository.incrementUserLikes(like.getUser().getId());
         iLikeRepository.save(like);
     }
 
     public void removeLike(long media_id, long user_id) {
-        mediaService.decrementLikes(media_id);
-        userService.decrementLikes(user_id);
-
+        iLikeRepository.decrementMediaLikes(media_id);
+        iLikeRepository.decrementUserLikes(user_id);
         iLikeRepository.deleteByMediaIdAndUserId(media_id, user_id);
+    }
+
+    public boolean isLikeExist(long media_id, long user_id) {
+        return iLikeRepository.isLikeExist(media_id, user_id);
     }
 }

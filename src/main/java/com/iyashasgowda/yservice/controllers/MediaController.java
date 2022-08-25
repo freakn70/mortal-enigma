@@ -1,6 +1,7 @@
 package com.iyashasgowda.yservice.controllers;
 
 import com.iyashasgowda.yservice.entities.Media;
+import com.iyashasgowda.yservice.entities.UserMedia;
 import com.iyashasgowda.yservice.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,20 @@ public class MediaController {
     public ResponseEntity<?> getMedia(@PathVariable("media_id") long media_id) {
         try {
             Media media = service.getMediaById(media_id);
+
+            if (media != null)
+                return new ResponseEntity<>(media, HttpStatus.OK);
+            else
+                return new ResponseEntity<>("Media not found!", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{media_id}/{user_id}")
+    public ResponseEntity<?> getMediaWithUser(@PathVariable("media_id") long media_id, @PathVariable("user_id") long user_id) {
+        try {
+            UserMedia media = service.getUserMedia(media_id, user_id);
 
             if (media != null)
                 return new ResponseEntity<>(media, HttpStatus.OK);

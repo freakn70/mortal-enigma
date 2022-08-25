@@ -14,29 +14,13 @@ import java.util.List;
 @Repository
 public interface IMediaRepository extends JpaRepository<Media, Long>, JpaSpecificationExecutor<Media> {
 
-    List<Media> findByType(MediaType type);
+    List<Media> findByTypeOrderByIdDesc(MediaType type);
 
     List<Media> findByTypeOrderByLikesDesc(MediaType type, Pageable pageable);
 
     @Modifying
     @Query("UPDATE Media m SET m.views = m.views + 1 WHERE m.id = ?1")
     void incrementViews(long media_id);
-
-    @Modifying
-    @Query("UPDATE Media m SET m.likes = m.likes + 1 WHERE m.id = ?1")
-    void incrementLikes(long media_id);
-
-    @Modifying
-    @Query("UPDATE Media m SET m.likes = m.likes - 1 WHERE m.id = ?1 AND m.likes > 0")
-    void decrementLikes(long media_id);
-
-    @Modifying
-    @Query("UPDATE Media m SET m.comments = m.comments + 1 WHERE m.id = ?1")
-    void incrementComments(long media_id);
-
-    @Modifying
-    @Query("UPDATE Media m SET m.comments = m.comments - 1 WHERE m.id = ?1 AND m.comments > 0")
-    void decrementComments(long media_id);
 
     @Modifying
     @Query("UPDATE Media m SET m.reports = m.reports + 1 WHERE m.id = ?1")
