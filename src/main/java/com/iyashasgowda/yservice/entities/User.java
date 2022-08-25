@@ -22,33 +22,26 @@ public class User implements Serializable {
     @Column(unique = true, length = 16, nullable = false)
     private String username;
 
-    @Column(length = 50)
     private String full_name;
 
-    @Column(unique = true, length = 50, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(length = 10)
     private String mobile;
 
-    @Column(length = Integer.MAX_VALUE)
     private String password;
 
-    @Column(length = Integer.MAX_VALUE)
     private String image_url;
 
-    @Column(nullable = false)
     private long uploads = 0;
 
-    @Column(nullable = false)
     private long likes = 0;
 
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private long created_on = System.currentTimeMillis();
 
-    @Column(nullable = false)
     private boolean verified = false;
 
-    @Column(nullable = false)
     private boolean active = true;
 }

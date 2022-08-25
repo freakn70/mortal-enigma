@@ -25,49 +25,39 @@ public class Media implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(unique = true, length = 18, nullable = false)
+    @Column(unique = true, nullable = false)
     private String filename;
 
-    @Column(length = Integer.MAX_VALUE, nullable = false)
+    @Column(nullable = false)
     @Nationalized
     private String title;
 
-    @Column(nullable = false)
     private long size = 0;
 
-    @Column(nullable = false)
     private long duration = 0;
 
     @Column(nullable = false)
     private MediaType type;
 
-    @Column(length = 10)
     private String format;
 
-    @Column(nullable = false)
     private Integer width = 0;
 
-    @Column(nullable = false)
     private Integer height = 0;
 
-    @Column(length = 512, nullable = false)
+    @Column(nullable = false)
     private String url;
 
-    @Column(length = 512)
     private String thumbnail;
 
-    @Column(nullable = false)
     private long views = 0;
 
-    @Column(nullable = false)
     private long likes = 0;
 
-    @Column(nullable = false)
     private long comments = 0;
 
-    @Column(nullable = false)
     private long reports = 0;
 
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private long created_on = System.currentTimeMillis();
 }

@@ -28,10 +28,10 @@ public class Comment implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(length = Integer.MAX_VALUE, nullable = false)
+    @Column(nullable = false)
     @Nationalized
     private String comment;
 
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private long created_on = System.currentTimeMillis();
 }
