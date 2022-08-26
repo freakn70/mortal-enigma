@@ -84,6 +84,24 @@ public class MediaController {
         }
     }
 
+    @GetMapping("/videos/{user_id}")
+    public ResponseEntity<?> getLikedVideos(@PathVariable("user_id") long user_id) {
+        try {
+            return new ResponseEntity<>(service.getLikedVideos(user_id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/images/{user_id}")
+    public ResponseEntity<?> getLikedImages(@PathVariable("user_id") long user_id) {
+        try {
+            return new ResponseEntity<>(service.getLikedImages(user_id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/images/trending/{limit}")
     public ResponseEntity<?> getTrendingImages(@PathVariable("limit") int limit) {
         try {

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserMedia extends Media {
-    private boolean isFavourite;
-    private boolean isCommented;
-    private boolean isReported;
+    private boolean liked;
+    private boolean commented;
+    private boolean reported;
 }

@@ -112,7 +112,7 @@ public class MediaService {
             userMedia.setComments(media.getComments());
             userMedia.setReports(media.getReports());
             userMedia.setCreated_on(media.getCreated_on());
-            userMedia.setFavourite(likeService.isLikeExist(media_id, user_id));
+            userMedia.setLiked(likeService.isLikeExist(media_id, user_id));
         }
         return userMedia;
     }
@@ -123,6 +123,14 @@ public class MediaService {
 
     public List<Media> getVideos() {
         return iMediaRepository.findByTypeOrderByIdDesc(MediaType.VIDEO);
+    }
+
+    public List<Media> getLikedVideos(long user_id) {
+        return likeService.getUserLikedVideos(user_id);
+    }
+
+    public List<Media> getLikedImages(long user_id) {
+        return likeService.getUserLikedImages(user_id);
     }
 
     public List<Media> getTrendingImages(int limit) {
@@ -137,7 +145,7 @@ public class MediaService {
         Media media = iMediaRepository.findById(media_id).orElse(null);
 
         if (media != null) {
-            Set<String> keywords = new HashSet<>(Arrays.asList(media.getTitle().split(" ")));
+            Set<String> keywords = new HashSet<>(Arrays.asList(media.getTitle().split("[, ._-]+")));
 
             return iMediaRepository.findAll((Specification<Media>) (root, query, cb) -> {
                 List<Predicate> predicates = new ArrayList<>();
