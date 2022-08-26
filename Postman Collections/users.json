@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "194f92f8-d785-46f9-9034-47677f5eab0d",
+		"name": "users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get user by id",
+			"_postman_id": "2ddf2854-61a0-490d-89d4-c2c10ea07c2f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/users/id/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by email",
+			"_postman_id": "ed9e7d78-8152-4355-8348-acd28b155cc3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/users/email/yashas348@gmail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by username",
+			"_postman_id": "f6f7d920-a04d-4bab-a74a-94197b9482e1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/users/username/yashas348"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"_postman_id": "3736e94e-0de6-4d20-9a06-570f05b76d59",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Validate username",
+			"_postman_id": "aceb016d-d081-4773-bd63-5d021bd3f0c2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/users/validate/iyashasgowda"
+			},
+			"response": []
+		},
+		{
+			"name": "Add user",
+			"_postman_id": "e3273e9d-dad9-49ce-bca0-89058b74ac1d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"iyashasgowda\",\r\n    \"full_name\": \"Yashas Gowda\",\r\n    \"email\": \"yashas348@gmail.com\",\r\n    \"password\": \"Password@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{base_url}}/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"_postman_id": "d85fc8f8-ee55-4e5a-abd9-32f271cc2cac",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"username\": \"iyashasgowda\",\r\n    \"full_name\": \"Yashas Gowda\",\r\n    \"email\": \"iyashasgowda@gmail.com\",\r\n    \"mobile\": \"9108831061\",\r\n    \"password\": \"Password@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{base_url}}/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"_postman_id": "55b250aa-cf35-40b5-885a-e8d58c5580d3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{base_url}}/users/1"
+			},
+			"response": []
+		}
+	]
+}
