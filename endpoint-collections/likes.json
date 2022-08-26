@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "64bf05d1-e8d8-4983-8bd5-799a3ed385e3",
+		"name": "likes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add like",
+			"_postman_id": "82102879-e667-4f40-a2d2-f7588c714dcf",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"media\": {\r\n            \"id\": 1,\r\n            \"user\": {\r\n                \"id\": 1,\r\n                \"username\": \"iyashasgowda\",\r\n                \"full_name\": \"Yashas Gowda\",\r\n                \"email\": \"iyashasgowda@gmail.com\",\r\n                \"mobile\": \"9108831063\",\r\n                \"password\": \"WWFzaGFzQDAwMw==\",\r\n                \"uploads\": 1,\r\n                \"likes\": 0,\r\n                \"created_on\": \"2022-08-11\",\r\n                \"updated_on\": \"2022-08-11\",\r\n                \"active\": true\r\n            },\r\n            \"identifier\": \"1660232105994.mp4\",\r\n            \"filename\": \"Flexbox CSS In 20 Minutes_HD.mp4\",\r\n            \"size\": 38848352,\r\n            \"url\": \"http://localhost:1998/uploads/videos/1660232105994.mp4\",\r\n            \"type\": \"VIDEO\",\r\n            \"views\": 0,\r\n            \"likes\": 0,\r\n            \"created_on\": \"2022-08-11\"\r\n        },\r\n    \"user\": {\r\n                \"id\": 1,\r\n                \"username\": \"iyashasgowda\",\r\n                \"full_name\": \"Yashas Gowda\",\r\n                \"email\": \"iyashasgowda@gmail.com\",\r\n                \"mobile\": \"9108831063\",\r\n                \"password\": \"WWFzaGFzQDAwMw==\",\r\n                \"uploads\": 1,\r\n                \"likes\": 0,\r\n                \"created_on\": \"2022-08-11\",\r\n                \"updated_on\": \"2022-08-11\",\r\n                \"active\": true\r\n            }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{base_url}}/likes"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete like",
+			"_postman_id": "b24e405c-3f9f-4291-852e-50ef366152d8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{base_url}}/likes/1/1"
+			},
+			"response": []
+		}
+	]
+}
