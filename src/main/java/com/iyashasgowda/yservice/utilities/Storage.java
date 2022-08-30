@@ -52,29 +52,30 @@ public class Storage {
     }
 
     public void storeVideo(Media media, MultipartFile file) {
-        String identifier = System.currentTimeMillis() + "." + helper.getFileExtension(file);
+        long identifier = System.currentTimeMillis();
+        String filename = identifier + "." + helper.getFileExtension(file);
 
         try {
-            Path targetLocation = VIDEO_STORAGE_LOCATION.resolve(identifier);
+            Path targetLocation = VIDEO_STORAGE_LOCATION.resolve(filename);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
             /* Setting video file name */
-            media.setFilename(identifier);
+            media.setFilename(filename);
 
             /* Setting video url */
-            media.setUrl(MEDIA_PATH + "/videos/" + identifier);
+            media.setUrl(MEDIA_PATH + "/videos/" + filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         /* Generating thumbnail for video */
-        generateThumbnail(media);
+        generateThumbnail(media, identifier);
     }
 
-    public void generateThumbnail(Media media) {
+    public void generateThumbnail(Media media, long identifier) {
         String videoPath = VIDEO_STORAGE_LOCATION + "\\" + media.getFilename();
-        String identifier = "thumbnail_" + System.currentTimeMillis() + ".jpeg";
-        String thumbPath = THUMB_STORAGE_LOCATION + "\\" + identifier;
+        String filename = "thumbnail_" + identifier + ".jpeg";
+        String thumbPath = THUMB_STORAGE_LOCATION + "\\" + filename;
         try {
             BufferedImage bi = AWTUtil.toBufferedImage(FrameGrab.getFrameFromFile(new File(videoPath), 1));
             ImageIO.write(Scalr.resize(bi, 480), "jpeg", new File(thumbPath));
@@ -84,7 +85,7 @@ public class Storage {
             media.setHeight(bi.getHeight());
 
             /* Setting thumbnail url */
-            media.setThumbnail(MEDIA_PATH + "/videos/thumbs/" + identifier);
+            media.setThumbnail(MEDIA_PATH + "/videos/thumbs/" + filename);
         } catch (IOException | JCodecException e) {
             e.printStackTrace();
         }
@@ -117,6 +118,17 @@ public class Storage {
             Path destination_location = DELETED_MEDIA_LOCATION.resolve("deleted_".concat(identifier));
             Files.move(source_location, destination_location, StandardCopyOption.REPLACE_EXISTING);
 
+            try {
+                if (type == MediaType.VIDEO) {
+                    String thumbnail = "thumbnail_" + identifier.split("\\.")[0] + ".jpeg";
+
+                    File thumb = THUMB_STORAGE_LOCATION.resolve(thumbnail).toAbsolutePath().toFile();
+                    if (thumb.exists())
+                        thumb.delete();
+                }
+            } catch (Exception t) {
+                t.printStackTrace();
+            }
             return true;
         } catch (IOException e) {
             e.printStackTrace();

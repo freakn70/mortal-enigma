@@ -69,6 +69,7 @@ public class MediaService {
             boolean removed = storage.removeMedia(media.getFilename(), media.getType());
 
             if (removed) {
+                likeService.removeLike(media_id, user_id);
                 iMediaRepository.deleteById(media_id);
                 userService.decrementUploads(user_id);
                 return true;

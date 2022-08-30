@@ -6,7 +6,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ws.schild.jave.EncoderException;
 import ws.schild.jave.MultimediaObject;
-import ws.schild.jave.info.MultimediaInfo;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -48,23 +47,16 @@ public class Helper {
     public void setVideoMetadata(Media media, MultipartFile file) {
         String filename = file.getOriginalFilename();
         if (filename != null) {
-            File video = new File(filename);
+
+            /* Setting media duration */
             try {
+                File video = new File(filename);
                 FileCopyUtils.copy(file.getBytes(), video);
-                MultimediaInfo result = new MultimediaObject(video).getInfo();
 
-                /* Setting media duration */
-                media.setDuration(result.getDuration() / 1000);
+                media.setDuration(new MultimediaObject(video).getInfo().getDuration() / 1000);
                 video.delete();
-
-                /* Setting media file format */
-                media.setFormat(result.getFormat());
-
             } catch (IOException | EncoderException e) {
                 e.printStackTrace();
-            } finally {
-                if (media.getFormat() == null)
-                    media.setFormat(getFileExtension(file));
             }
 
             /* Setting media title */
@@ -72,6 +64,9 @@ public class Helper {
                 media.setTitle(filename.substring(0, filename.lastIndexOf(".")));
             else
                 media.setTitle(media.getFilename());
+
+            /* Setting media file format */
+            media.setFormat(getFileExtension(file));
 
             /* Setting media size */
             media.setSize(file.getSize());
@@ -93,22 +88,14 @@ public class Helper {
                 e.printStackTrace();
             }
 
-            /* Setting media file format *********************************/
-            try {
-                MultimediaInfo mi = new MultimediaObject(image).getInfo();
-                media.setFormat(mi.getFormat());
-            } catch (EncoderException e) {
-                e.printStackTrace();
-            } finally {
-                if (media.getFormat() == null)
-                    media.setFormat(getFileExtension(file));
-            }
-
             /* Setting media title ***************************************/
             if (filename.indexOf(".") > 0 && getFileExtension(file) != null)
                 media.setTitle(filename.substring(0, filename.lastIndexOf(".")));
             else
                 media.setTitle(media.getFilename());
+
+            /* Setting media file format *********************************/
+            media.setFormat(getFileExtension(file));
 
             /* Setting media size *****************************************/
             media.setSize(file.getSize());
