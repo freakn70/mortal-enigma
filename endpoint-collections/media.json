@@ -7,7 +7,7 @@
 	"item": [
 		{
 			"name": "Get all images",
-			"_postman_id": "a7e363ce-8098-4240-946c-cd2203ae6f23",
+			"id": "a7e363ce-8098-4240-946c-cd2203ae6f23",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -20,7 +20,7 @@
 		},
 		{
 			"name": "Get all videos",
-			"_postman_id": "39c0adb9-c2dd-4981-b152-1319c284cf0e",
+			"id": "39c0adb9-c2dd-4981-b152-1319c284cf0e",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -33,7 +33,7 @@
 		},
 		{
 			"name": "Get related videos",
-			"_postman_id": "fd32ad1c-89ff-4d3d-8475-ad99a7410179",
+			"id": "fd32ad1c-89ff-4d3d-8475-ad99a7410179",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -46,7 +46,7 @@
 		},
 		{
 			"name": "Upload files",
-			"_postman_id": "198a4969-5039-49d1-b4f7-b122767ce3ce",
+			"id": "198a4969-5039-49d1-b4f7-b122767ce3ce",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -57,19 +57,16 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "files",
+							"key": "file",
 							"type": "file",
-							"src": "/D:/Pictures/logo.png"
+							"src": "/C:/Users/Yashas/Desktop/media/Why You Should Spend More Time Thinking About Dna.mp4"
 						},
 						{
 							"key": "user_id",
 							"value": "1",
 							"type": "text"
 						}
-					],
-					"options": {
-						"formdata": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/media/upload"
 			},
@@ -77,7 +74,7 @@
 		},
 		{
 			"name": "Delete media",
-			"_postman_id": "af2a56b5-1b70-42fe-9f08-cc751615fe6e",
+			"id": "af2a56b5-1b70-42fe-9f08-cc751615fe6e",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -90,7 +87,7 @@
 		},
 		{
 			"name": "Get trending images",
-			"_postman_id": "84b230d5-d078-4def-b17e-02afe3bda611",
+			"id": "84b230d5-d078-4def-b17e-02afe3bda611",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -103,7 +100,7 @@
 		},
 		{
 			"name": "Get media by id",
-			"_postman_id": "ad291c1a-87da-4f09-9638-8039b9c64b02",
+			"id": "ad291c1a-87da-4f09-9638-8039b9c64b02",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -116,7 +113,7 @@
 		},
 		{
 			"name": "Get media by media & user",
-			"_postman_id": "61b760f1-d7fb-4c68-b20b-68cf975ce65a",
+			"id": "61b760f1-d7fb-4c68-b20b-68cf975ce65a",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
