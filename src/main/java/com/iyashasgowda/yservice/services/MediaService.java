@@ -35,31 +35,27 @@ public class MediaService {
     @Autowired
     private Helper helper;
 
-    public List<Media> saveFile(List<MultipartFile> files, long user_id) {
-        List<Media> list = new ArrayList<>();
+    public Media saveFile(MultipartFile file, long user_id) {
+        Media media = new Media();
 
-        files.forEach(file -> {
-            Media media = new Media();
-
-            helper.setMediaType(media, file);
-            if (media.getType() != MediaType.INVALID) {
-                if (media.getType() == MediaType.VIDEO) {
-                    storage.storeVideo(media, file);
-                    helper.setVideoMetadata(media, file);
-                } else if (media.getType() == MediaType.IMAGE) {
-                    storage.storeImage(media, file);
-                    helper.setImageMetadata(media, file);
-                }
-
-                if (media.getFilename() != null) {
-                    userService.incrementUploads(user_id);
-                    media.setUser(userService.getUser(user_id));
-                    list.add(iMediaRepository.save(media));
-                }
+        helper.setMediaType(media, file);
+        if (media.getType() != MediaType.INVALID) {
+            if (media.getType() == MediaType.VIDEO) {
+                storage.storeVideo(media, file);
+                helper.setVideoMetadata(media, file);
+            } else if (media.getType() == MediaType.IMAGE) {
+                storage.storeImage(media, file);
+                helper.setImageMetadata(media, file);
             }
-        });
 
-        return list;
+            if (media.getFilename() != null) {
+                userService.incrementUploads(user_id);
+                media.setUser(userService.getUser(user_id));
+                return iMediaRepository.save(media);
+            }
+        }
+
+        return null;
     }
 
     public boolean removeFile(long media_id, long user_id) {

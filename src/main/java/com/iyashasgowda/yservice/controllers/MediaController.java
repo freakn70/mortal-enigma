@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/media")
 public class MediaController {
@@ -130,15 +128,14 @@ public class MediaController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadMedia(@RequestParam List<MultipartFile> files, @RequestParam long user_id) {
+    public ResponseEntity<?> uploadMedia(@RequestParam MultipartFile file, @RequestParam long user_id) {
         try {
-            if (files == null || files.isEmpty())
-                return new ResponseEntity<>("No files found to upload!", HttpStatus.BAD_REQUEST);
+            if (file == null)
+                return new ResponseEntity<>("No file found to upload!", HttpStatus.BAD_REQUEST);
 
-            List<Media> list = service.saveFile(files, user_id);
-
-            if (list != null && !list.isEmpty())
-                return new ResponseEntity<>(list, HttpStatus.OK);
+            Media media = service.saveFile(file, user_id);
+            if (media != null)
+                return new ResponseEntity<>(media, HttpStatus.OK);
             else
                 return new ResponseEntity<>("Error while saving the file!", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
