@@ -35,8 +35,11 @@ public class MediaService {
     @Autowired
     private Helper helper;
 
-    public Media saveFile(MultipartFile file, long user_id) {
+    public Media saveFile(long user_id, MultipartFile file, String title, String description, String keywords) {
         Media media = new Media();
+        media.setTitle(title);
+        media.setDescription(description);
+        media.setKeywords(keywords);
 
         helper.setMediaType(media, file);
         if (media.getType() != MediaType.INVALID) {

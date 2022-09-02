@@ -60,10 +60,7 @@ public class Helper {
             }
 
             /* Setting media title */
-            if (filename.indexOf(".") > 0 && getFileExtension(file) != null)
-                media.setTitle(filename.substring(0, filename.lastIndexOf(".")));
-            else
-                media.setTitle(media.getFilename());
+            setMediaTitle(media, file, filename);
 
             /* Setting media file format */
             media.setFormat(getFileExtension(file));
@@ -78,7 +75,7 @@ public class Helper {
         if (filename != null) {
             File image = new File(filename);
 
-            /* Setting media height & width *****************************/
+            /* Setting media height & width */
             try {
                 BufferedImage bi = ImageIO.read(image);
 
@@ -88,17 +85,23 @@ public class Helper {
                 e.printStackTrace();
             }
 
-            /* Setting media title ***************************************/
+            /* Setting media title */
+            setMediaTitle(media, file, filename);
+
+            /* Setting media file format */
+            media.setFormat(getFileExtension(file));
+
+            /* Setting media size */
+            media.setSize(file.getSize());
+        }
+    }
+
+    private void setMediaTitle(Media media, MultipartFile file, String filename) {
+        if (media.getTitle() == null) {
             if (filename.indexOf(".") > 0 && getFileExtension(file) != null)
                 media.setTitle(filename.substring(0, filename.lastIndexOf(".")));
             else
                 media.setTitle(media.getFilename());
-
-            /* Setting media file format *********************************/
-            media.setFormat(getFileExtension(file));
-
-            /* Setting media size *****************************************/
-            media.setSize(file.getSize());
         }
     }
 }

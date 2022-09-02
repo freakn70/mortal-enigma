@@ -32,6 +32,12 @@ public class Media implements Serializable {
     @Nationalized
     private String title;
 
+    @Nationalized
+    private String description;
+
+    @Nationalized
+    private String keywords;
+
     private long size = 0;
 
     private long duration = 0;

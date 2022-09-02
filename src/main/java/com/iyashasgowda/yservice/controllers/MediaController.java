@@ -127,15 +127,16 @@ public class MediaController {
         }
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<?> uploadMedia(@RequestParam MultipartFile file, @RequestParam long user_id) {
+    @PostMapping("/upload/{user_id}")
+    public ResponseEntity<?> uploadMedia(@PathVariable("user_id") long user_id, @RequestParam MultipartFile file,
+                                         @RequestParam String title, @RequestParam String description, @RequestParam String keywords) {
         try {
             if (file == null)
                 return new ResponseEntity<>("No file found to upload!", HttpStatus.BAD_REQUEST);
 
-            Media media = service.saveFile(file, user_id);
-            if (media != null)
-                return new ResponseEntity<>(media, HttpStatus.OK);
+            Media savedMedia = service.saveFile(user_id, file, title, description, keywords);
+            if (savedMedia != null)
+                return new ResponseEntity<>(savedMedia, HttpStatus.OK);
             else
                 return new ResponseEntity<>("Error while saving the file!", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
