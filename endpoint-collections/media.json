@@ -59,16 +59,26 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/Yashas/Desktop/media/Why You Should Spend More Time Thinking About Dna.mp4"
+							"src": "/C:/Users/Yashas/Desktop/media/5 Tools Everyone In The Forest Industry Should Be Using.mp4"
 						},
 						{
-							"key": "user_id",
-							"value": "1",
+							"key": "title",
+							"value": "this is the video title",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "this is the file description",
+							"type": "text"
+						},
+						{
+							"key": "keywords",
+							"value": "key1, key2, key3",
 							"type": "text"
 						}
 					]
 				},
-				"url": "{{base_url}}/media/upload"
+				"url": "{{base_url}}/media/upload/1"
 			},
 			"response": []
 		},
