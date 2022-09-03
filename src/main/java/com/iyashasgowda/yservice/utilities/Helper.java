@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -73,11 +74,10 @@ public class Helper {
     public void setImageMetadata(Media media, MultipartFile file) {
         String filename = file.getOriginalFilename();
         if (filename != null) {
-            File image = new File(filename);
 
             /* Setting media height & width */
             try {
-                BufferedImage bi = ImageIO.read(image);
+                BufferedImage bi = ImageIO.read(new URL(media.getUrl()));
 
                 media.setWidth(bi.getWidth());
                 media.setHeight(bi.getHeight());

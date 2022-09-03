@@ -134,11 +134,7 @@ public class MediaController {
             if (file == null)
                 return new ResponseEntity<>("No file found to upload!", HttpStatus.BAD_REQUEST);
 
-            Media savedMedia = service.saveFile(user_id, file, title, description, keywords);
-            if (savedMedia != null)
-                return new ResponseEntity<>(savedMedia, HttpStatus.OK);
-            else
-                return new ResponseEntity<>("Error while saving the file!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return service.saveFile(user_id, file, title, description, keywords);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

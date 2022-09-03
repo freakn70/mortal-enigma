@@ -9,6 +9,8 @@ import com.iyashasgowda.yservice.utilities.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,11 +37,14 @@ public class MediaService {
     @Autowired
     private Helper helper;
 
-    public Media saveFile(long user_id, MultipartFile file, String title, String description, String keywords) {
+    public ResponseEntity<?> saveFile(long user_id, MultipartFile file, String title, String description, String keywords) {
+        if (userService.getUser(user_id) == null)
+            return new ResponseEntity<>("No owner exist to upload file!", HttpStatus.BAD_REQUEST);
+
         Media media = new Media();
         media.setTitle(title);
-        media.setDescription(description);
-        media.setKeywords(keywords);
+        media.setDescription(description.trim().isEmpty() ? null : description);
+        media.setKeywords(keywords.trim().isEmpty() ? null : keywords);
 
         helper.setMediaType(media, file);
         if (media.getType() != MediaType.INVALID) {
@@ -54,11 +59,10 @@ public class MediaService {
             if (media.getFilename() != null) {
                 userService.incrementUploads(user_id);
                 media.setUser(userService.getUser(user_id));
-                return iMediaRepository.save(media);
+                return new ResponseEntity<>(iMediaRepository.save(media), HttpStatus.OK);
             }
         }
-
-        return null;
+        return new ResponseEntity<>("Error while saving the file!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public boolean removeFile(long media_id, long user_id) {
