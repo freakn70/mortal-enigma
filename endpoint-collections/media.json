@@ -47,19 +47,6 @@
 			"response": []
 		},
 		{
-			"name": "Get related videos",
-			"id": "fd32ad1c-89ff-4d3d-8475-ad99a7410179",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "{{base_url}}/media/videos/related/1"
-			},
-			"response": []
-		},
-		{
 			"name": "Upload files",
 			"id": "198a4969-5039-49d1-b4f7-b122767ce3ce",
 			"protocolProfileBehavior": {
@@ -111,34 +98,6 @@
 			"response": []
 		},
 		{
-			"name": "Get trending images",
-			"id": "84b230d5-d078-4def-b17e-02afe3bda611",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "page",
-							"value": "0",
-							"type": "text"
-						},
-						{
-							"key": "size",
-							"value": "3",
-							"type": "text"
-						}
-					]
-				},
-				"url": "{{base_url}}/media/images/trending"
-			},
-			"response": []
-		},
-		{
 			"name": "Get media by id",
 			"id": "ad291c1a-87da-4f09-9638-8039b9c64b02",
 			"protocolProfileBehavior": {
@@ -161,6 +120,34 @@
 				"method": "GET",
 				"header": [],
 				"url": "{{base_url}}/media/1/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get related videos",
+			"id": "fd32ad1c-89ff-4d3d-8475-ad99a7410179",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "page",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "size",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/media/videos/related/10012"
 			},
 			"response": []
 		},
@@ -245,6 +232,34 @@
 					]
 				},
 				"url": "{{base_url}}/media/videos/trending"
+			},
+			"response": []
+		},
+		{
+			"name": "Get trending images",
+			"id": "84b230d5-d078-4def-b17e-02afe3bda611",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "page",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "size",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/media/images/trending"
 			},
 			"response": []
 		}
