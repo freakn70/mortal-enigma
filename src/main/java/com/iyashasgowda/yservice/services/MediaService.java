@@ -1,6 +1,7 @@
 package com.iyashasgowda.yservice.services;
 
 import com.iyashasgowda.yservice.entities.Media;
+import com.iyashasgowda.yservice.entities.PageResponse;
 import com.iyashasgowda.yservice.entities.UserMedia;
 import com.iyashasgowda.yservice.repositories.IMediaRepository;
 import com.iyashasgowda.yservice.utilities.Helper;
@@ -121,37 +122,61 @@ public class MediaService {
         return userMedia;
     }
 
-    public List<Media> getImages() {
-        return iMediaRepository.findByTypeOrderByIdDesc(MediaType.IMAGE);
+    public PageResponse getImages(int page, int size) {
+        return new PageResponse(
+                page,
+                size,
+                iMediaRepository.findByTypeOrderByIdDesc(MediaType.IMAGE, PageRequest.of(page, size))
+        );
     }
 
-    public List<Media> getVideos() {
-        return iMediaRepository.findByTypeOrderByIdDesc(MediaType.VIDEO);
+    public PageResponse getVideos(int page, int size) {
+        return new PageResponse(
+                page,
+                size,
+                iMediaRepository.findByTypeOrderByIdDesc(MediaType.VIDEO, PageRequest.of(page, size))
+        );
     }
 
-    public List<Media> getLikedVideos(long user_id) {
-        return likeService.getUserLikedVideos(user_id);
+    public PageResponse getLikedVideos(long user_id, int page, int size) {
+        return new PageResponse(
+                page,
+                size,
+                likeService.getUserLikedVideos(user_id, page, size)
+        );
     }
 
-    public List<Media> getLikedImages(long user_id) {
-        return likeService.getUserLikedImages(user_id);
+    public PageResponse getLikedImages(long user_id, int page, int size) {
+        return new PageResponse(
+                page,
+                size,
+                likeService.getUserLikedImages(user_id, page, size)
+        );
     }
 
-    public List<Media> getTrendingImages(int limit) {
-        return iMediaRepository.findByTypeOrderByLikesDesc(MediaType.IMAGE, PageRequest.of(0, limit));
+    public PageResponse getTrendingImages(int page, int size) {
+        return new PageResponse(
+                page,
+                size,
+                iMediaRepository.findByTypeOrderByLikesDesc(MediaType.IMAGE, PageRequest.of(page, size))
+        );
     }
 
-    public List<Media> getTrendingVideos(int limit) {
-        return iMediaRepository.findByTypeOrderByLikesDesc(MediaType.VIDEO, PageRequest.of(0, limit));
+    public PageResponse getTrendingVideos(int page, int size) {
+        return new PageResponse(
+                page,
+                size,
+                iMediaRepository.findByTypeOrderByLikesDesc(MediaType.VIDEO, PageRequest.of(page, size))
+        );
     }
 
-    public List<Media> getRelatedVideos(long media_id) {
+    public PageResponse getRelatedVideos(long media_id, int page, int size) {
         Media media = iMediaRepository.findById(media_id).orElse(null);
 
         if (media != null) {
             Set<String> keywords = new HashSet<>(Arrays.asList(media.getTitle().split("[, ._-]+")));
 
-            return iMediaRepository.findAll((Specification<Media>) (root, query, cb) -> {
+            Specification<Media> specification = (root, query, cb) -> {
                 List<Predicate> predicates = new ArrayList<>();
                 predicates.add(cb.notEqual(root.get("id"), media_id));
                 predicates.add(cb.equal(root.get("type"), MediaType.VIDEO));
@@ -163,8 +188,13 @@ public class MediaService {
 
                 predicates.add(cb.or(conditions.toArray(new Predicate[conditions.size()])));
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
-            });
+            };
+            return new PageResponse(
+                    page,
+                    size,
+                    iMediaRepository.findAll(specification, PageRequest.of(page, size)).getContent()
+            );
         }
-        return getTrendingVideos(10);
+        return getTrendingVideos(page, size);
     }
 }

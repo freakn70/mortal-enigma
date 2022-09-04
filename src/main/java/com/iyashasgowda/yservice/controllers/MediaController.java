@@ -65,63 +65,63 @@ public class MediaController {
     }
 
     @GetMapping("/videos")
-    public ResponseEntity<?> getVideos() {
+    public ResponseEntity<?> getVideos(@RequestParam int page, @RequestParam int size) {
         try {
-            return new ResponseEntity<>(service.getVideos(), HttpStatus.OK);
+            return new ResponseEntity<>(service.getVideos(page, size), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/images")
-    public ResponseEntity<?> getImages() {
+    public ResponseEntity<?> getImages(@RequestParam int page, @RequestParam int size) {
         try {
-            return new ResponseEntity<>(service.getImages(), HttpStatus.OK);
+            return new ResponseEntity<>(service.getImages(page, size), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/videos/{user_id}")
-    public ResponseEntity<?> getLikedVideos(@PathVariable("user_id") long user_id) {
+    public ResponseEntity<?> getLikedVideos(@PathVariable("user_id") long user_id, @RequestParam int page, @RequestParam int size) {
         try {
-            return new ResponseEntity<>(service.getLikedVideos(user_id), HttpStatus.OK);
+            return new ResponseEntity<>(service.getLikedVideos(user_id, page, size), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/images/{user_id}")
-    public ResponseEntity<?> getLikedImages(@PathVariable("user_id") long user_id) {
+    public ResponseEntity<?> getLikedImages(@PathVariable("user_id") long user_id, @RequestParam int page, @RequestParam int size) {
         try {
-            return new ResponseEntity<>(service.getLikedImages(user_id), HttpStatus.OK);
+            return new ResponseEntity<>(service.getLikedImages(user_id, page, size), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/images/trending/{limit}")
-    public ResponseEntity<?> getTrendingImages(@PathVariable("limit") int limit) {
+    @GetMapping("/images/trending")
+    public ResponseEntity<?> getTrendingImages(@RequestParam int page, @RequestParam int size) {
         try {
-            return new ResponseEntity<>(service.getTrendingImages(limit), HttpStatus.OK);
+            return new ResponseEntity<>(service.getTrendingImages(page, size), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/videos/trending/{limit}")
-    public ResponseEntity<?> getTrendingVideos(@PathVariable("limit") int limit) {
+    @GetMapping("/videos/trending")
+    public ResponseEntity<?> getTrendingVideos(@RequestParam int page, @RequestParam int size) {
         try {
-            return new ResponseEntity<>(service.getTrendingVideos(limit), HttpStatus.OK);
+            return new ResponseEntity<>(service.getTrendingVideos(page, size), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/videos/related/{media_id}")
-    public ResponseEntity<?> getRelatedVideos(@PathVariable("media_id") long media_id) {
+    public ResponseEntity<?> getRelatedVideos(@PathVariable("media_id") long media_id, @RequestParam int page, @RequestParam int size) {
         try {
-            return new ResponseEntity<>(service.getRelatedVideos(media_id), HttpStatus.OK);
+            return new ResponseEntity<>(service.getRelatedVideos(media_id, page, size), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
