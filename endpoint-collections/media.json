@@ -176,6 +176,34 @@
 				"url": "{{base_url}}/media/videos/1"
 			},
 			"response": []
+		},
+		{
+			"name": "Get user liked images",
+			"id": "2cc6836f-f02d-4ebc-823a-9ff6739e4d97",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "page",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "size",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/media/images/1"
+			},
+			"response": []
 		}
 	]
 }
