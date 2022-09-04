@@ -3,6 +3,7 @@ server:
   port: 1998   #development
 #  port: 1999   #local
 
+
 spring:
   jackson:
     serialization:

@@ -11,16 +11,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface IMediaRepository extends PagingAndSortingRepository<Media, Long>, JpaSpecificationExecutor<Media> {
 
     Page<Media> findAll(Specification<Media> spec, Pageable page);
 
-    List<Media> findByTypeOrderByIdDesc(MediaType type, Pageable page);
+    Page<Media> findByTypeOrderByIdDesc(MediaType type, Pageable page);
 
-    List<Media> findByTypeOrderByLikesDesc(MediaType type, Pageable page);
+    Page<Media> findByTypeOrderByLikesDesc(MediaType type, Pageable page);
 
     @Modifying
     @Query("UPDATE Media m SET m.views = m.views + 1 WHERE m.id = ?1")

@@ -2,19 +2,18 @@ package com.iyashasgowda.yservice.repositories;
 
 import com.iyashasgowda.yservice.entities.Like;
 import com.iyashasgowda.yservice.utilities.MediaType;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface ILikeRepository extends PagingAndSortingRepository<Like, Long> {
     void deleteByMediaIdAndUserId(long media_id, long user_id);
 
-    List<Like> findByUserIdAndMediaTypeOrderByIdDesc(long user_id, MediaType type, Pageable page);
+    Page<Like> findByUserIdAndMediaTypeOrderByIdDesc(long user_id, MediaType type, Pageable page);
 
     @Modifying
     @Query("UPDATE Media m SET m.likes = m.likes + 1 WHERE m.id = ?1")

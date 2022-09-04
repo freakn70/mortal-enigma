@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageResponse {
-    private int page;
-    private int size;
+    private int current_page;
+    private int per_page;
+    private int total_pages;
     private Object data;
 }

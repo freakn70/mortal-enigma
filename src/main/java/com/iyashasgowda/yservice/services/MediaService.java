@@ -8,6 +8,7 @@ import com.iyashasgowda.yservice.utilities.Helper;
 import com.iyashasgowda.yservice.utilities.MediaType;
 import com.iyashasgowda.yservice.utilities.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -123,50 +124,62 @@ public class MediaService {
     }
 
     public PageResponse getImages(int page, int size) {
+        Page<Media> list = iMediaRepository.findByTypeOrderByIdDesc(MediaType.IMAGE, PageRequest.of(page, size));
         return new PageResponse(
-                page,
-                size,
-                iMediaRepository.findByTypeOrderByIdDesc(MediaType.IMAGE, PageRequest.of(page, size))
+                list.getNumber(),
+                list.getNumberOfElements(),
+                list.getTotalPages(),
+                list.getContent()
         );
     }
 
     public PageResponse getVideos(int page, int size) {
+        Page<Media> list = iMediaRepository.findByTypeOrderByIdDesc(MediaType.VIDEO, PageRequest.of(page, size));
         return new PageResponse(
-                page,
-                size,
-                iMediaRepository.findByTypeOrderByIdDesc(MediaType.VIDEO, PageRequest.of(page, size))
+                list.getNumber(),
+                list.getNumberOfElements(),
+                list.getTotalPages(),
+                list.getContent()
         );
     }
 
     public PageResponse getLikedVideos(long user_id, int page, int size) {
+        Page<Media> list = likeService.getUserLikedVideos(user_id, page, size);
         return new PageResponse(
-                page,
-                size,
-                likeService.getUserLikedVideos(user_id, page, size)
+                list.getNumber(),
+                list.getNumberOfElements(),
+                list.getTotalPages(),
+                list.getContent()
         );
     }
 
     public PageResponse getLikedImages(long user_id, int page, int size) {
+        Page<Media> list = likeService.getUserLikedImages(user_id, page, size);
         return new PageResponse(
-                page,
-                size,
-                likeService.getUserLikedImages(user_id, page, size)
+                list.getNumber(),
+                list.getNumberOfElements(),
+                list.getTotalPages(),
+                list.getContent()
         );
     }
 
     public PageResponse getTrendingImages(int page, int size) {
+        Page<Media> list = iMediaRepository.findByTypeOrderByLikesDesc(MediaType.IMAGE, PageRequest.of(page, size));
         return new PageResponse(
-                page,
-                size,
-                iMediaRepository.findByTypeOrderByLikesDesc(MediaType.IMAGE, PageRequest.of(page, size))
+                list.getNumber(),
+                list.getNumberOfElements(),
+                list.getTotalPages(),
+                list.getContent()
         );
     }
 
     public PageResponse getTrendingVideos(int page, int size) {
+        Page<Media> list = iMediaRepository.findByTypeOrderByLikesDesc(MediaType.VIDEO, PageRequest.of(page, size));
         return new PageResponse(
-                page,
-                size,
-                iMediaRepository.findByTypeOrderByLikesDesc(MediaType.VIDEO, PageRequest.of(page, size))
+                list.getNumber(),
+                list.getNumberOfElements(),
+                list.getTotalPages(),
+                list.getContent()
         );
     }
 
@@ -189,10 +202,13 @@ public class MediaService {
                 predicates.add(cb.or(conditions.toArray(new Predicate[conditions.size()])));
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             };
+
+            Page<Media> list = iMediaRepository.findAll(specification, PageRequest.of(page, size));
             return new PageResponse(
-                    page,
-                    size,
-                    iMediaRepository.findAll(specification, PageRequest.of(page, size)).getContent()
+                    list.getNumber(),
+                    list.getNumberOfElements(),
+                    list.getTotalPages(),
+                    list.getContent()
             );
         }
         return getTrendingVideos(page, size);
