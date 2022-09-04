@@ -219,6 +219,34 @@
 				"url": "{{base_url}}/media/images/1"
 			},
 			"response": []
+		},
+		{
+			"name": "Get trending videos",
+			"id": "b5e1e7b7-5e50-4f01-ac65-532dd2c554f0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "page",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "size",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/media/videos/trending"
+			},
+			"response": []
 		}
 	]
 }
