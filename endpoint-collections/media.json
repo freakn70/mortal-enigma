@@ -27,6 +27,21 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "page",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "size",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
 				"url": "{{base_url}}/media/videos"
 			},
 			"response": []
