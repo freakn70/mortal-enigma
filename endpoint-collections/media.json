@@ -148,6 +148,34 @@
 				"url": "{{base_url}}/media/1/1"
 			},
 			"response": []
+		},
+		{
+			"name": "Get user liked videos",
+			"id": "b32c192f-ee1d-41d1-a4ae-9a1048aed753",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "page",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "size",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/media/videos/1"
+			},
+			"response": []
 		}
 	]
 }
