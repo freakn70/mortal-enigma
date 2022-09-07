@@ -1,4 +1,4 @@
-package com.iyashasgowda.yservice.utilities;
+package com.iyashasgowda.mortalenigma.utilities;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

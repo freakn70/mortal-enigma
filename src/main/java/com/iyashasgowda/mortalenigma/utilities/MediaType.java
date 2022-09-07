@@ -1,4 +1,4 @@
-package com.iyashasgowda.yservice.utilities;
+package com.iyashasgowda.mortalenigma.utilities;
 
 public enum MediaType {
     VIDEO,

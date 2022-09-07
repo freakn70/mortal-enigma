@@ -1,8 +1,8 @@
-package com.iyashasgowda.yservice.services;
+package com.iyashasgowda.mortalenigma.services;
 
-import com.iyashasgowda.yservice.entities.User;
-import com.iyashasgowda.yservice.repositories.IUserRepository;
-import com.iyashasgowda.yservice.utilities.Helper;
+import com.iyashasgowda.mortalenigma.entities.User;
+import com.iyashasgowda.mortalenigma.repositories.IUserRepository;
+import com.iyashasgowda.mortalenigma.utilities.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

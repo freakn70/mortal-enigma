@@ -1,13 +1,13 @@
-package com.iyashasgowda.yservice;
+package com.iyashasgowda.mortalenigma;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class YServiceApplication {
+public class MortalEnigmaApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(YServiceApplication.class, args);
+        SpringApplication.run(MortalEnigmaApp.class, args);
     }
 
 }

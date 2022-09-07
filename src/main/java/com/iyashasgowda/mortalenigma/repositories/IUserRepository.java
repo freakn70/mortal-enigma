@@ -1,6 +1,6 @@
-package com.iyashasgowda.yservice.repositories;
+package com.iyashasgowda.mortalenigma.repositories;
 
-import com.iyashasgowda.yservice.entities.User;
+import com.iyashasgowda.mortalenigma.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

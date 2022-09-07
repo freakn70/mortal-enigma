@@ -1,4 +1,4 @@
-package com.iyashasgowda.yservice.entities;
+package com.iyashasgowda.mortalenigma.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

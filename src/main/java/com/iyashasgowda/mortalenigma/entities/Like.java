@@ -1,21 +1,18 @@
-package com.iyashasgowda.yservice.entities;
+package com.iyashasgowda.mortalenigma.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "comments")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Comment implements Serializable {
+@Table(name = "likes")
+public class Like implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -27,11 +24,4 @@ public class Comment implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    @Column(nullable = false)
-    @Nationalized
-    private String comment;
-
-    @Column(updatable = false)
-    private long created_on = System.currentTimeMillis();
 }

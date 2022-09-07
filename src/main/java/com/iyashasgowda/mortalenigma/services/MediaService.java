@@ -1,12 +1,12 @@
-package com.iyashasgowda.yservice.services;
+package com.iyashasgowda.mortalenigma.services;
 
-import com.iyashasgowda.yservice.entities.Media;
-import com.iyashasgowda.yservice.entities.PageResponse;
-import com.iyashasgowda.yservice.entities.UserMedia;
-import com.iyashasgowda.yservice.repositories.IMediaRepository;
-import com.iyashasgowda.yservice.utilities.Helper;
-import com.iyashasgowda.yservice.utilities.MediaType;
-import com.iyashasgowda.yservice.utilities.Storage;
+import com.iyashasgowda.mortalenigma.entities.Media;
+import com.iyashasgowda.mortalenigma.entities.PageResponse;
+import com.iyashasgowda.mortalenigma.entities.UserMedia;
+import com.iyashasgowda.mortalenigma.repositories.IMediaRepository;
+import com.iyashasgowda.mortalenigma.utilities.Helper;
+import com.iyashasgowda.mortalenigma.utilities.MediaType;
+import com.iyashasgowda.mortalenigma.utilities.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

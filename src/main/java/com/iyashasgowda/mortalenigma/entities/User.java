@@ -1,4 +1,4 @@
-package com.iyashasgowda.yservice.entities;
+package com.iyashasgowda.mortalenigma.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

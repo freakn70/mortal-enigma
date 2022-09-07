@@ -1,6 +1,6 @@
-package com.iyashasgowda.yservice.utilities;
+package com.iyashasgowda.mortalenigma.utilities;
 
-import com.iyashasgowda.yservice.entities.Media;
+import com.iyashasgowda.mortalenigma.entities.Media;
 import org.imgscalr.Scalr;
 import org.jcodec.api.FrameGrab;
 import org.jcodec.api.JCodecException;
@@ -19,7 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import static com.iyashasgowda.yservice.utilities.Constants.MEDIA_PATH;
+import static com.iyashasgowda.mortalenigma.utilities.Constants.MEDIA_PATH;
 
 @Component
 public class Storage {
