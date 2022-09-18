@@ -73,9 +73,9 @@ public class Storage {
     }
 
     public void generateThumbnail(Media media, long identifier) {
-        String videoPath = VIDEO_STORAGE_LOCATION + "\\" + media.getFilename();
+        String videoPath = VIDEO_STORAGE_LOCATION + "/" + media.getFilename();
         String filename = "thumbnail_" + identifier + ".jpeg";
-        String thumbPath = THUMB_STORAGE_LOCATION + "\\" + filename;
+        String thumbPath = THUMB_STORAGE_LOCATION + "/" + filename;
         try {
             BufferedImage bi = AWTUtil.toBufferedImage(FrameGrab.getFrameFromFile(new File(videoPath), 1));
             ImageIO.write(Scalr.resize(bi, 480), "jpeg", new File(thumbPath));
