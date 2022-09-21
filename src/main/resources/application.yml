@@ -1,7 +1,12 @@
 server:
-  port: 1997   #production
-#  port: 1998   #development
-#  port: 1999       #local
+#production
+#port: 1997
+
+#development
+port: 1998
+
+#local
+#port: 1999
 
 spring:
   jackson:
@@ -15,8 +20,15 @@ spring:
       max-request-size: 10GB
 
   datasource:
-    #    url: jdbc:sqlserver://49.206.228.34:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
-    url: jdbc:sqlserver://192.168.0.104:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
+    #cosmetic
+    #url: jdbc:sqlserver://49.206.228.34:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
+
+    #production
+    #url: jdbc:sqlserver://192.168.0.104:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
+
+    #development & local
+    url: jdbc:sqlserver://192.168.0.105:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
+
     username: sa
     password: mortalEnigma@359
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
