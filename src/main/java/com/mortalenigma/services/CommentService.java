@@ -1,7 +1,7 @@
-package com.iyashasgowda.mortalenigma.services;
+package com.mortalenigma.services;
 
-import com.iyashasgowda.mortalenigma.entities.Comment;
-import com.iyashasgowda.mortalenigma.repositories.ICommentRepository;
+import com.mortalenigma.entities.Comment;
+import com.mortalenigma.repositories.ICommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

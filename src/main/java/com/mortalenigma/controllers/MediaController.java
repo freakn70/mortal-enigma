@@ -1,8 +1,8 @@
-package com.iyashasgowda.mortalenigma.controllers;
+package com.mortalenigma.controllers;
 
-import com.iyashasgowda.mortalenigma.entities.Media;
-import com.iyashasgowda.mortalenigma.entities.UserMedia;
-import com.iyashasgowda.mortalenigma.services.MediaService;
+import com.mortalenigma.entities.Media;
+import com.mortalenigma.entities.UserMedia;
+import com.mortalenigma.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package com.iyashasgowda.mortalenigma.repositories;
+package com.mortalenigma.repositories;
 
-import com.iyashasgowda.mortalenigma.entities.Like;
-import com.iyashasgowda.mortalenigma.utilities.MediaType;
+import com.mortalenigma.entities.Like;
+import com.mortalenigma.utilities.Constants.MediaType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;

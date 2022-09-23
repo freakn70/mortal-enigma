@@ -1,4 +1,4 @@
-package com.iyashasgowda.mortalenigma.configs;
+package com.mortalenigma.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;

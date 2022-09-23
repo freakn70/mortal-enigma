@@ -1,4 +1,4 @@
-package com.iyashasgowda.mortalenigma;
+package com.mortalenigma;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

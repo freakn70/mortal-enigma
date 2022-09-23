@@ -8,7 +8,7 @@
         <version>2.7.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.iyashasgowda</groupId>
+    <groupId>com.mortalenigma</groupId>
     <artifactId>mortal-enigma</artifactId>
     <version>0.0.1</version>
     <name>Mortal Enigma</name>

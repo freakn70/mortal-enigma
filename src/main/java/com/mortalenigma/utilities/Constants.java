@@ -1,4 +1,4 @@
-package com.iyashasgowda.mortalenigma.utilities;
+package com.mortalenigma.utilities;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -7,4 +7,6 @@ public class Constants {
     public static final String[] IMAGE_EXT = {"png", "jpg", "jpeg", "gif", "tiff"};
     public static final String MEDIA_PATH = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/uploads";
     public static final String A2Z = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+    public enum MediaType {VIDEO, IMAGE, INVALID}
 }

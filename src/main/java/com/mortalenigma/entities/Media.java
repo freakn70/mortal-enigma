@@ -1,7 +1,7 @@
-package com.iyashasgowda.mortalenigma.entities;
+package com.mortalenigma.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.iyashasgowda.mortalenigma.utilities.MediaType;
+import com.mortalenigma.utilities.Constants.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,7 @@
-package com.iyashasgowda.mortalenigma.utilities;
+package com.mortalenigma.utilities;
 
-import com.iyashasgowda.mortalenigma.entities.Media;
+import com.mortalenigma.entities.Media;
+import com.mortalenigma.utilities.Constants.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +16,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
 
-import static com.iyashasgowda.mortalenigma.utilities.Constants.A2Z;
+import static com.mortalenigma.utilities.Constants.A2Z;
 
 @Component
 public class Helper {

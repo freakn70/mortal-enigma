@@ -1,12 +1,6 @@
 server:
-  #production
-  #port: 1997
-
-  #development
-  port: 1998
-
-  #local
-  #port: 1999
+  #  port: 1359  #production & development
+  port: 1997  #local
 
 spring:
   jackson:

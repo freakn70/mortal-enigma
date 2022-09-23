@@ -1,9 +1,9 @@
-package com.iyashasgowda.mortalenigma.services;
+package com.mortalenigma.services;
 
-import com.iyashasgowda.mortalenigma.entities.Like;
-import com.iyashasgowda.mortalenigma.entities.Media;
-import com.iyashasgowda.mortalenigma.repositories.ILikeRepository;
-import com.iyashasgowda.mortalenigma.utilities.MediaType;
+import com.mortalenigma.entities.Like;
+import com.mortalenigma.entities.Media;
+import com.mortalenigma.repositories.ILikeRepository;
+import com.mortalenigma.utilities.Constants.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

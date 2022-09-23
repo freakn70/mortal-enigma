@@ -1,7 +1,7 @@
-package com.iyashasgowda.mortalenigma.controllers;
+package com.mortalenigma.controllers;
 
-import com.iyashasgowda.mortalenigma.entities.Like;
-import com.iyashasgowda.mortalenigma.services.LikeService;
+import com.mortalenigma.entities.Like;
+import com.mortalenigma.services.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
