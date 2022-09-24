@@ -1,5 +1,5 @@
 server:
-  #  port: 1359  #production & development
+  #port: 1359  #production & development
   port: 1997  #local
 
 spring:

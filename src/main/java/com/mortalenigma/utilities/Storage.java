@@ -20,10 +20,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import static com.mortalenigma.utilities.Constants.MEDIA_PATH;
-
 @Component
 public class Storage {
+    private final String MEDIA_URL;
     private final Path VIDEO_STORAGE_LOCATION;
     private final Path THUMB_STORAGE_LOCATION;
     private final Path IMAGE_STORAGE_LOCATION;
@@ -34,12 +33,10 @@ public class Storage {
 
     @Autowired
     public Storage(Environment env) {
+        this.MEDIA_URL = env.getProperty("app.media.base-url");
         this.VIDEO_STORAGE_LOCATION = Paths.get(env.getProperty("app.file.video-upload-dir", "./uploads/videos")).toAbsolutePath().normalize();
-
         this.THUMB_STORAGE_LOCATION = Paths.get(env.getProperty("app.file.thumb-upload-dir", "./uploads/videos/thumbs")).toAbsolutePath().normalize();
-
         this.IMAGE_STORAGE_LOCATION = Paths.get(env.getProperty("app.file.image-upload-dir", "./uploads/images")).toAbsolutePath().normalize();
-
         this.DELETED_MEDIA_LOCATION = Paths.get(env.getProperty("app.file.deleted-upload-dir", "./uploads/deleted")).toAbsolutePath().normalize();
 
         try {
@@ -64,7 +61,7 @@ public class Storage {
             media.setFilename(filename);
 
             /* Setting video url */
-            media.setUrl(MEDIA_PATH + "/videos/" + filename);
+            media.setUrl(MEDIA_URL + "/videos/" + filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,7 +83,7 @@ public class Storage {
             media.setHeight(bi.getHeight());
 
             /* Setting thumbnail url */
-            media.setThumbnail(MEDIA_PATH + "/videos/thumbs/" + filename);
+            media.setThumbnail(MEDIA_URL + "/videos/thumbs/" + filename);
         } catch (IOException | JCodecException e) {
             e.printStackTrace();
         }
@@ -103,7 +100,7 @@ public class Storage {
             media.setFilename(identifier);
 
             /* Setting image url */
-            media.setUrl(MEDIA_PATH + "/images/" + identifier);
+            media.setUrl(MEDIA_URL + "/images/" + identifier);
         } catch (IOException e) {
             e.printStackTrace();
         }
