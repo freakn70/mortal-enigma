@@ -65,7 +65,7 @@ public class MediaController {
     }
 
     @GetMapping("/videos")
-    public ResponseEntity<?> getVideos(@RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<?> getVideos(@RequestParam("page") int page, @RequestParam("size") int size) {
         try {
             return new ResponseEntity<>(service.getVideos(page, size), HttpStatus.OK);
         } catch (Exception e) {

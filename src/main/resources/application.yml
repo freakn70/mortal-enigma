@@ -1,6 +1,6 @@
 server:
-  #port: 1359  #production & development
-  port: 1997  #local
+  #  port: 1997
+  port: 1998
 
 spring:
   jackson:
@@ -9,26 +9,17 @@ spring:
 
   servlet:
     multipart:
-      enabled: true
       max-file-size: 10GB
       max-request-size: 10GB
 
   datasource:
-    #cosmetic
-    #url: jdbc:sqlserver://49.206.228.34:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
-
-    #production
-    #url: jdbc:sqlserver://192.168.0.104:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
-
-    #development & local
-    url: jdbc:sqlserver://192.168.0.105:1433;databaseName=mortal_enigma;encrypt=true;trustServerCertificate=true;
-
-    username: sa
-    password: mortalEnigma@359
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:mysql://127.0.0.1:3306/ydb
+    username: root
+    password: Yashas@003
+    driver-class-name: com.mysql.jdbc.Driver
 
   jpa:
     show-sql: true
     hibernate:
-      dialect: org.hibernate.dialect.SQLServer2012Dialect
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       ddl-auto: update
