@@ -13,9 +13,9 @@ spring:
       max-request-size: 10GB
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/ydb
-    username: root
-    password: Yashas@003
+    url: jdbc:mysql://127.0.0.1:3306/mortal_enigma
+    username: app
+    password: mortalEnigma@359
     driver-class-name: com.mysql.jdbc.Driver
 
   jpa:
@@ -23,3 +23,15 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: freakn70@gmail.com
+    password: duhexpafhljjctui
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.connection-timeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.write-timeout: 5000
+      mail.smtp.starttls.enable: true

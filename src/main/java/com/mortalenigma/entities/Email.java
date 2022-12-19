@@ -1,0 +1,16 @@
+package com.mortalenigma.entities;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Email {
+    private String to;
+    private String title;
+    private String subject;
+    private String body;
+    private String attachment;
+}
