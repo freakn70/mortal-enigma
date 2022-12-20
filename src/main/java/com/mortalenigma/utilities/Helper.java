@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
 
-import static com.mortalenigma.utilities.Constants.A2Z;
+import static com.mortalenigma.utilities.Constants.*;
 
 @Component
 public class Helper {
@@ -95,6 +95,17 @@ public class Helper {
             /* Setting media size */
             media.setSize(file.getSize());
         }
+    }
+
+    public String generateOtp(int length, boolean useAlphabets, boolean useChars) {
+        String values = NUMBERS;
+        if(useAlphabets) values = String.format("%s%s%s", values, UPPERCASE_LETTERS, LOWERCASE_LETTERS);
+        if(useChars) values = String.format("%s%s", values, SPECIAL_CHARS);
+
+        Random random = new Random();
+        String OTP = "";
+        for (int i = 0; i < length; i++) OTP = String.format("%s%s", OTP, values.charAt(random.nextInt(values.length())));
+        return OTP;
     }
 
     private void setMediaTitle(Media media, MultipartFile file, String filename) {

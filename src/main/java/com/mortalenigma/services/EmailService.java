@@ -1,8 +1,14 @@
 package com.mortalenigma.services;
 
 import com.mortalenigma.entities.Email;
+import com.mortalenigma.utilities.Helper;
+import lombok.extern.log4j.Log4j2;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Address;
@@ -13,68 +19,57 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Log4j2
 public class EmailService {
 
     @Autowired
     private JavaMailSender sender;
 
-    public Map<String, Object> sendEmail(Email email) {
-        Map<String, Object> result;
+    @Autowired
+    private Helper helper;
+
+    @Value("${email.id}")
+    private String email_id;
+
+    @Value("${email.signature}")
+    private String signature;
+
+    @Async
+    void send(Email email) {
         try {
             MimeMessage message = sender.createMimeMessage();
-            message.setFrom(new InternetAddress("contact@nesscoloura.com", "Nesscoloura"));
+            message.setFrom(new InternetAddress(email_id, "Nesscoloura"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email.getTo()));
-            message.setReplyTo(new Address[]{new InternetAddress("contact@nesscoloura.com")});
-
+            message.setReplyTo(new Address[]{new InternetAddress(email_id)});
             message.setSubject(email.getSubject());
             message.setContent(email.getBody(), "text/html");
-
             sender.send(message);
 
-            result = new HashMap<>();
-            result.put("success", true);
-            result.put("message", "Email sent successfully.");
+            log.info("Email sent to " + email.getTo());
         } catch (Exception e) {
-            result = new HashMap<>();
-            result.put("success", false);
-            result.put("message", "Error: " + e.getMessage());
+            log.error("Error not sent: " + e.getMessage());
         }
+    }
+
+    public Map<String, Object> sendEmailVerificationOtp(String email) {
+        String OTP = helper.generateOtp(6, false, false);
+        String body = "<div style='font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2'>" +
+                "<div style='margin:50px auto;width:70%;padding:20px 0'>" +
+                "<div style='border-bottom:1px solid #eee'>" +
+                "<a href='' style='font-size:1.4em;color: #212121;text-decoration:none;font-weight:600'>Nesscoloura</a>" +
+                "</div>" +
+                "<p style='font-size:1.1em'>Hello,</p>" +
+                "<p>Thank you for using Nesscoloura. Use the following OTP to complete registration process. OTP is valid for 5 minutes</p>" +
+                "<h2 style='position: absolute;background: #212121;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 8px;'>" +
+                OTP + "</h2>" +
+                "<br /><br /><p>Regards,<br />Nesscoloura</p>" +
+                "</div></div>";
+
+        send(new Email(email, "Email verification", body, null));
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("otp", OTP);
+        result.put("message", "OTP sent to registered email.");
         return result;
-
-        /*
-        replyTo = replyTo == null ? "customercare@zivame.com" : replyTo;
-        // Create a default MimeMessage object.
-        MimeMessage message = sender.createMimeMessage();
-
-        // Set From: header field of the header.
-        message.setFrom(new InternetAddress(from, "Zivame"));
-        // Set To: header field of the header.
-        for (String toEmail : to.split("[,;]")) {
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-        }
-        Address[] addrs = { new InternetAddress(replyTo) };
-        message.setReplyTo(addrs);
-
-        // Set Subject: header field
-        message.setSubject(subject);
-
-        // Send the actual HTML message, as big as you like
-        message.setContent(body, "text/html");
-
-        // SMTP API header
-        if (category != null) {
-            Map<String, Object> smtpHeader = new HashMap<>();
-            smtpHeader.put("category", new String[] { category });
-            try {
-                String smtpHeaderString = " " + MAPPER.writeValueAsString(smtpHeader);
-                message.addHeader("X-SMTPAPI", smtpHeaderString);
-            } catch (JsonProcessingException e) {
-                log.error("unable to prepare X-SMTPAPI JSON", e);
-            }
-        }
-
-        // Send message
-        sender.send(message);
-        * */
     }
 }

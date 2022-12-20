@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/contact")
-public class EmailController {
+public class ContactController {
 
     @Autowired
     private EmailService service;
 
-    @PostMapping("/send-email")
-    public ResponseEntity<?> sendEmail(@RequestBody Email email) {
+    @PostMapping("/send-email-verification-otp")
+    public ResponseEntity<?> sendEmailVerificationOtp(@RequestParam String email) {
         if (email != null) {
-            return new ResponseEntity<>(service.sendEmail(email), HttpStatus.OK);
+            return new ResponseEntity<>(service.sendEmailVerificationOtp(email), HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Invalid request body!", HttpStatus.BAD_REQUEST);
         }
